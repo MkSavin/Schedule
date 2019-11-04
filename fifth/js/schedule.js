@@ -51,11 +51,19 @@ $(function(){
         // 	$('table td>div').finish();
         $('table td>div').fadeTo(300, 1);
     });
+
     Date.prototype.getWeek = function() {
-        var o = new Date(this.getFullYear(),0,1);
-        var t = new Date(this.getFullYear(),this.getMonth(),this.getDate());
-        var d = ((t - o +1)/86400000);
-        return Math.ceil(d/7);
+        
+        /* Standalone realizations */
+        // var d = new Date(Date.UTC(this.getFullYear(), this.getMonth(), this.getDate()));
+        // var dayNum = d.getUTCDay() || 7;
+        // d.setUTCDate(d.getUTCDate() + 4 - dayNum);
+        // var yearStart = new Date(Date.UTC(d.getUTCFullYear(),0,1));
+        // return Math.ceil((((d - yearStart) / 86400000) + 1)/7)
+
+        /* Date.format lib */
+        return (new Date()).format('W');
+
     };
 
     GetSelectorData = function(minutes){
