@@ -116,8 +116,8 @@ $(function(){
         return week % 2 == 0;
     }
 
-    BuildSelector = function(couple_num, weekday, week) {
-        return 'table tr.'+couple_num+' td.'+weekday+'>div:'+(GetWeekType(week)?"first":"last")+'-of-type';
+    BuildSelector = function(couple_num, weekday, week, long_num = false) {
+        return 'table tr.'+couple_num+' td.'+weekday+(long_num ? '.long-'+long_num : '')+'>div:'+(GetWeekType(week)?"first":"last")+'-of-type';
     }
 
     UpdateTime = function(){
@@ -128,11 +128,15 @@ $(function(){
 
         minutes = hours*60 + minutes;
         
+        minutes = 15*60 + 31;
+
         $('table td>div').removeClass('blue');
 
         var selector = null;
         var sliced = 0;
+        
         do {
+
             if(minutes < 8*60+30)
                 break;
 
@@ -143,12 +147,16 @@ $(function(){
             if(couple_num == '' || weekday == '')
                 break;
 
-            var selector = BuildSelector(couple_num, weekday, week);
+            var selector = BuildSelector(couple_num, weekday, week, sliced >= 1 ? sliced+1 : false);
+            
             minutes -= 110;
 
             sliced++;
 
         } while (!$(selector).children().length);
+
+        if(selector != undefined)
+            $(selector).addClass('blue');
 
         $('.colorbubble.denum_s, .colorbubble.num_s').removeClass('blue');
         $('.colorbubble.'+(GetWeekType(week)?'':'de')+'num_s').addClass('blue');
@@ -159,8 +167,6 @@ $(function(){
             $(this).html(GetWeekType(week) ? num : denum);
         });
 
-        if(sliced == 1 || (sliced > 1 && ($(selector).parent().hasClass('long-2') || $(selector).parent().hasClass('long-3'))))
-            $(selector).addClass('blue');
     };
     UpdateTime();
     setInterval(UpdateTime, 100*60*10);
