@@ -51,6 +51,8 @@
 				$contents = false;
 				$type_r = strtoupper($type);
 				$contentstyle = "";
+				$link = "";
+				$nosize = false;
 
 				// Получаем данные по типам
 				switch($type) {
@@ -60,6 +62,14 @@
 					case "gif":
 						$image = $file;
 						break;
+
+					case "link":
+						$contents = mb_substr(file_get_contents('./dl/'.$_file), 0, 150);
+						$contents = Encoding::ToUTF8($contents);
+						$type_r = "ССЫЛКА";
+						$link = $contents;
+						$nosize = true;
+					break;
 
 					case "txt":
 						$contents = mb_substr(file_get_contents('./dl/'.$_file), 0, 150);
@@ -73,6 +83,10 @@
 
 					case "pas":
 						$type_r = "ПАСКАЛЬ";
+						break;
+
+					case "pdf":
+						$type_r = "PDF";
 						break;
 
 					case "doc":
@@ -107,16 +121,18 @@
 				$filesize_s = $filesize." ".$filesize_suffix[$i];
 
 			?>
-				<a href="dl/<?=rawurlencode($file)?>" download="<?=$file?>" class="file dl <?=$type?>">
+				<a href="<?=$link ? trim(str_replace('\n', '', $link)) : 'dl/'.rawurlencode($file)?>" download="<?=$file?>" class="file dl <?=$type?>">
 					<div class="content"<?=$contentstyle?>>
 						<?if(!$contents){?>
 						<img src="<?=$image?>" class="unhovered" alt="">
 						<img src="<?=$image_white?>" class="hovered" alt="">
 						<?}?>
+						<?if(!$nosize){?>
 						<span class="info">
 							<span class="fl_l"></span>
 							<span class="fl_r"><img src="img/download.svg" alt="" width="10"> <?=$filesize_s?></span>
 						</span>
+						<?}?>
 						<span class="text">
 							<?=$contents?>
 						</span>
