@@ -565,7 +565,8 @@ footer > div:last-of-type {
 	height: 72px;
 	width: calc(100% - 30px);
 	overflow: hidden;
-	font-size: 15px
+	font-size: 15px;
+	word-break: break-word
 }
 
 .modal .file .content .info {
@@ -608,6 +609,20 @@ footer > div:last-of-type {
 	border-radius: 3px;
 	line-height: 23px;
 	font-size: 13px
+}
+
+.modal .file.pdf .type, .modal .file.pdf:hover .content {
+	background: linear-gradient(#fba6a2 0%, #fb7fa4 100%)!important
+}
+.modal .file.pdf .content .text, .modal .file.pdf .content .info, .modal .file.pdf .title {
+	color: rgb(251, 127, 164)
+}
+
+.modal .file.link .type, .modal .file.link:hover .content {
+	background: #2e2447!important
+}
+.modal .file.link .content .text, .modal .file.link .content .info, .modal .file.link .title {
+	color: #2e2447
 }
 
 .modal .file.docx .type, .modal .file.docx:hover .content {
