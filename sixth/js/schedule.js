@@ -43,13 +43,22 @@ $(function(){
     $(document).on('keyup keydown', function(e){shifted = e.shiftKey});
     $('.colorbubble').hover(function(){
         var selector = 'table td>div'+$(this).data(!shifted||typeof($(this).data('shift-selector')) == 'undefined'?'selector':'shift-selector');
-        if(!shifted)
+        if(!shifted) {
             $(selector).finish();
+        }
+
+        $('table td>div:not('+($(this).data(!shifted||typeof($(this).data('shift-selector')) == 'undefined'?'selector':'shift-selector'))+')').fadeTo(300, 1);
         $(selector).fadeTo(300, .3);
+
+        SetParallel($(this).data('weektype') != "denum");
     }, function(){
         // if(!shifted)
         // 	$('table td>div').finish();
-        $('table td>div').fadeTo(300, 1);
+
+        var week = new Date().getWeek();
+
+        NormalizeOpacity(week);
+        SetParallel(GetWeekType(week));
     });
 
     Date.prototype.getWeek = function() {
@@ -120,6 +129,25 @@ $(function(){
         return 'table tr.'+couple_num+' td.'+weekday+(long_num ? '.long-'+long_num : '')+'>div:'+(GetWeekType(week)?"first":"last")+'-of-type';
     }
 
+    FadeOutAll = function() {
+        $('table td>div').fadeTo(300, 1);
+    }
+
+    NormalizeOpacity = function(week) {
+        $('.'+(GetWeekType(week)?'':'de')+'num').fadeTo(300, 1);
+        $('.'+(!GetWeekType(week)?'':'de')+'num:not(.' +(GetWeekType(week)?'':'de')+'num)').fadeTo(300, .56);
+    }
+
+    SetParallel = function(weektype) {
+        $('.parallel').removeClass('num_s').removeClass('denum_s');
+        $('.parallel').addClass((weektype?'':'de')+'num_s');
+
+        $('.group-marker').each(function(){
+            var num = $(this).attr('group-num'), denum = $(this).attr('group-denum');
+            $(this).html(weektype ? num : denum);
+        });
+    }
+
     UpdateTime = function(){
         var week = new Date().getWeek();
 
@@ -158,13 +186,10 @@ $(function(){
 
         $('.colorbubble.denum_s, .colorbubble.num_s').removeClass('blue');
         $('.colorbubble.'+(GetWeekType(week)?'':'de')+'num_s').addClass('blue');
+        
+        NormalizeOpacity(week);
 
-        $('.parallel').addClass((GetWeekType(week)?'':'de')+'num_s');
-        $('.group-marker').each(function(){
-            var num = $(this).attr('group-num'), denum = $(this).attr('group-denum');
-            $(this).html(GetWeekType(week) ? num : denum);
-        });
-
+        SetParallel(GetWeekType(week));
     };
     UpdateTime();
     setInterval(UpdateTime, 100*60*10);
