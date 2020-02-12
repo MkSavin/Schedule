@@ -220,7 +220,6 @@ $(function(){
     $(document).on('submit', '.js-generator-form', function(e) {
         e.preventDefault();
         var self = $(this);
-        console.log(self.serialize());
 
         $.ajax({
             url: 'generator/generate.php',
@@ -231,7 +230,6 @@ $(function(){
                 link.html(data.loadname);
                 link.attr('download', data.loadname);
                 link.attr('href', data.file);
-                console.log(data);
             }
         });
     });
