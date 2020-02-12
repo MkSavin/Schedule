@@ -19,133 +19,184 @@
 			<img src="img/close.png" alt="" width="32" height="32">
 			<span>Кликните вне окна чтобы закрыть</span>
 		</span>
-		<div class="modal right">
-			<div class="title">Файлы</div>
-			<div class="container ps">
-			<?
-			// Сканируем папку
-			$files = array_diff(scandir('./dl/'), ["..", "."]);
-			
-			// Проходимся по файлам
-			foreach($files as $key => $file){
+		<div class="modal right book">
+			<div class="page active" data-page-id="1">
+				<div class="title">Файлы <a href="#" class="button short ml-2 page-navigator" data-target="2">Сгенерировать шаблон</a></div>
+				<div class="container ps">
+				<?
+				// Сканируем папку
+				$files = array_diff(scandir('./dl/'), ["..", "."]);
+				
+				// Проходимся по файлам
+				foreach($files as $key => $file){
 
-				// Запоминаем название файла с родн. кодировкой
-				$_file = $file;
-				// Меняем кодировку
-				$file = Encoding::ToUTF8($file);
+					// Запоминаем название файла с родн. кодировкой
+					$_file = $file;
+					// Меняем кодировку
+					$file = Encoding::ToUTF8($file);
 
-				// Данные о файле
-				$filedata = explode(".", $file);
+					// Данные о файле
+					$filedata = explode(".", $file);
 
-				// Получаем тип и название. PHP очень плохо определяет стандартными методами тип файла
-				$type = $filedata[count($filedata)-1];
-				if(is_array($filedata))
-					unset($filedata[count($filedata)-1]);
-				$name = implode(".", $filedata);
+					// Получаем тип и название. PHP очень плохо определяет стандартными методами тип файла
+					$type = $filedata[count($filedata)-1];
+					if(is_array($filedata))
+						unset($filedata[count($filedata)-1]);
+					$name = implode(".", $filedata);
 
-				if(!$type)
-					$type = "";
+					if(!$type)
+						$type = "";
 
-				// Инициализация
-				$image = false;
-				$contents = false;
-				$type_r = strtoupper($type);
-				$contentstyle = "";
-				$link = "";
-				$nosize = false;
+					// Инициализация
+					$image = false;
+					$contents = false;
+					$type_r = strtoupper($type);
+					$contentstyle = "";
+					$link = "";
+					$nosize = false;
 
-				// Получаем данные по типам
-				switch($type) {
-					case "png":
-					case "jpg":
-					case "svg":
-					case "gif":
-						$image = $file;
+					// Получаем данные по типам
+					switch($type) {
+						case "png":
+						case "jpg":
+						case "svg":
+						case "gif":
+							$image = $file;
+							break;
+
+						case "link":
+							$contents = mb_substr(file_get_contents('./dl/'.$_file), 0, 150);
+							$contents = Encoding::ToUTF8($contents);
+							$type_r = "ССЫЛКА";
+							$link = $contents;
+							$nosize = true;
 						break;
 
-					case "link":
-						$contents = mb_substr(file_get_contents('./dl/'.$_file), 0, 150);
-						$contents = Encoding::ToUTF8($contents);
-						$type_r = "ССЫЛКА";
-						$link = $contents;
-						$nosize = true;
-					break;
+						case "txt":
+							$contents = mb_substr(file_get_contents('./dl/'.$_file), 0, 150);
+							$contents = Encoding::ToUTF8($contents);
+							$type_r = "ТЕКСТ";
+							break;
 
-					case "txt":
-						$contents = mb_substr(file_get_contents('./dl/'.$_file), 0, 150);
-						$contents = Encoding::ToUTF8($contents);
-						$type_r = "ТЕКСТ";
-						break;
+						case "cs":
+							$type_r = "C#";
+							break;
 
-					case "cs":
-						$type_r = "C#";
-						break;
+						case "pas":
+							$type_r = "ПАСКАЛЬ";
+							break;
 
-					case "pas":
-						$type_r = "ПАСКАЛЬ";
-						break;
+						case "pdf":
+							$type_r = "PDF";
+							break;
 
-					case "pdf":
-						$type_r = "PDF";
-						break;
+						case "doc":
+						case "docx":
+							$type_r = "W";
+							break;
+					}
 
-					case "doc":
-					case "docx":
-						$type_r = "W";
-						break;
-				}
+					if($image) {
+						$contentstyle = ' style="background: url(dl/'.rawurlencode($image).') no-repeat center/cover!important"';
+						$image = " ";
+					}
 
-				if($image) {
-					$contentstyle = ' style="background: url(dl/'.rawurlencode($image).') no-repeat center/cover!important"';
-					$image = " ";
-				}
+					if(!$image && file_exists("./img/filetypes/".$type.".png"))
+						$image = "img/filetypes/".$type.".png";
 
-				if(!$image && file_exists("./img/filetypes/".$type.".png"))
-					$image = "img/filetypes/".$type.".png";
+					if(file_exists("./img/filetypes/".$type."_white.png"))
+						$image_white = "img/filetypes/".$type."_white.png";
+					else 
+						$image_white = $image;
 
-				if(file_exists("./img/filetypes/".$type."_white.png"))
-					$image_white = "img/filetypes/".$type."_white.png";
-				else 
-					$image_white = $image;
+					$filesize = filesize('./dl/'.$_file);
 
-				$filesize = filesize('./dl/'.$_file);
+					$filesize_suffix = ["Б", "КБ", "МБ", "ГБ", "ТБ", "ПБ"];
+					$i = 0;
 
-				$filesize_suffix = ["Б", "КБ", "МБ", "ГБ", "ТБ", "ПБ"];
-				$i = 0;
+					while ($filesize > 1024) {
+						$filesize = intval($filesize / 1024 * 10) / 10;
+						$i++;
+					}
 
-				while ($filesize > 1024) {
-					$filesize = intval($filesize / 1024 * 10) / 10;
-					$i++;
-				}
+					$filesize_s = $filesize." ".$filesize_suffix[$i];
 
-				$filesize_s = $filesize." ".$filesize_suffix[$i];
-
-			?>
-				<a href="<?=$link ? trim(str_replace('\n', '', $link)) : 'dl/'.rawurlencode($file)?>" download="<?=$file?>" class="file dl <?=$type?>">
-					<div class="content"<?=$contentstyle?>>
-						<?if(!$contents){?>
-						<img src="<?=$image?>" class="unhovered" alt="">
-						<img src="<?=$image_white?>" class="hovered" alt="">
-						<?}?>
-						<?if(!$nosize){?>
-						<span class="info">
-							<span class="fl_l"></span>
-							<span class="fl_r"><img src="img/download.svg" alt="" width="10"> <?=$filesize_s?></span>
-						</span>
-						<?}?>
-						<span class="text">
-							<?=$contents?>
-						</span>
+				?>
+					<a href="<?=$link ? trim(str_replace('\n', '', $link)) : 'dl/'.rawurlencode($file)?>" download="<?=$file?>" class="file dl <?=$type?>">
+						<div class="content"<?=$contentstyle?>>
+							<?if(!$contents){?>
+							<img src="<?=$image?>" class="unhovered" alt="">
+							<img src="<?=$image_white?>" class="hovered" alt="">
+							<?}?>
+							<?if(!$nosize){?>
+							<span class="info">
+								<span class="fl_l"></span>
+								<span class="fl_r"><img src="img/download.svg" alt="" width="10"> <?=$filesize_s?></span>
+							</span>
+							<?}?>
+							<span class="text">
+								<?=$contents?>
+							</span>
+						</div>
+						<div class="data">
+							<span class="type"><?=$type_r?></span>
+							<span class="title"><?=$name?></span>
+						</div>
+					</a>
+				<?}?>
+				<?if(count($files) == 0){?>
+					Файлов, приложенных к сайту, нет
+				<?}?>
+				</div>
+			</div>
+			<div class="page" data-page-id="2">
+				<div class="title">Генератор шаблонов <a href="#" class="button short ml-2 page-navigator" data-target="1">Файлы</a></div>
+				<form class="form js-generator-form">
+					<div class="row">
+						<div class="col mr-27p">
+							<div class="form-group">
+								<label for="">Ваше ФИО</label>
+								<input type="text" name="student-name" class="control">
+							</div>
+							<div class="form-group">
+								<label for="">Преподаватель</label>
+								<input type="text" name="teacher-name" class="control">
+							</div>
+							<div class="form-group">
+								<label for="">Дисциплина</label>
+								<input type="text" name="discipline" class="control">
+							</div>
+							<div class="form-group">
+								<label for="">Город</label>
+								<input type="text" name="city" class="control" value="Владимир">
+							</div>
+							<div class="form-group">
+								<button type="submit" class="button blue">Сгенерировать</button>
+							</div>
+						</div>
+						<div class="col">
+							<div class="form-group">
+								<label for="">Группа</label>
+								<input type="text" name="student-group" class="control" value="ПРИ-117">
+							</div>
+							<div class="form-group">
+								<label for="">Должность</label>
+								<input type="text" name="teacher-group" class="control">
+							</div>
+							<div class="form-group">
+								<label for="">Номер работы</label>
+								<input type="text" name="work-number" class="control">
+							</div>
+							<div class="form-group">
+								<label for="">Год</label>
+								<input type="text" name="year" class="control" value="<?=date('Y')?>">
+							</div>
+						</div>
 					</div>
-					<div class="data">
-						<span class="type"><?=$type_r?></span>
-						<span class="title"><?=$name?></span>
-					</div>
-				</a>
-			<?}?>
-			<?if(count($files) == 0){?>
-				Файлов, приложенных к сайту, нет
-			<?}?>
+				</form>
+				<div class="generator-success alert alert-success d-none">
+					Ваш файл: <a href="#" class="js-link alert-link" download="file.docx">Файл</a>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -199,7 +250,7 @@
 						</div>
 						<div class="rsb">
 							<div class="group-location">A/Б <span>410-2</span></div>
-							<div class="couple_name">ОРВБ</div>
+							<div class="couple_name">ОРВП</div>
 							<div class="teacher">Салех</div>
 						</div>
 					</div>
@@ -416,7 +467,7 @@
 						</div>
 						<div class="rsb">
 							<div class="group-location"><span class="group-marker" group-num="Б" group-denum="А">Б</span> <span>414-2</span></div>
-							<div class="couple_name">ОРВБ</div>
+							<div class="couple_name">ОРВП</div>
 							<div class="teacher">Козаев</div>
 						</div>
 					</div>
@@ -510,7 +561,7 @@
 			<a href="#" class="button"><img src="img/key.svg" alt="К" height="18">Доступы</a>
 			<div>
 				<img src="img/user.svg" alt="U" height="16"> <input type="text" name="l" spellcheck="false" readonly value="stu-pri117" id="user">
-				<img src="img/key.svg" alt="К" height="16"> <input type="text" name="p" spellcheck="false" readonly value="<?=include 'pass.php'?>" id="key">
+				<img src="img/key.svg" alt="К" height="16"> <input type="text" name="p" spellcheck="false" readonly value="<?=@include 'pass.php'?>" id="key">
 			</div>
 		</div>
 		<div class="colorbubble red" data-shift-selector=":not(.red)" data-selector=".purple"><span>А</span> Группа <b>А</b></div>
