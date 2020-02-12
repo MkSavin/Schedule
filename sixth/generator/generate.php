@@ -9,13 +9,13 @@ $workNumber = intval($_GET["work-number"]) ?? 1;
 $city = trim(strip_tags($_GET["city"])) ?? "Владимир";
 $year = intval($_GET["year"]) ?? date('Y');
 
-$root = dirname(__FILE__);
+$root = str_replace('\\', '/', dirname(__FILE__));
 
 include 'filemanager.php';
 
 $hash = md5($studentName . "!-=" . $studentGroup . "!-=" . $teacherName . "!-=" . $teacherGroup . "!-=" . $discipline . "!-=" . $workNumber . "!-=" . $city . "!-=" . $year);
 
-$cRoot = $root . '\\cache\\' . $hash;
+$cRoot = $root . '/cache/' . $hash;
 
 if (!is_dir($cRoot) || !file_exists($cRoot . ".docx")) {
 
@@ -23,9 +23,9 @@ if (!is_dir($cRoot) || !file_exists($cRoot . ".docx")) {
         rmdir($cRoot);
     }
 
-    xcopy($root . '\\template', $cRoot);
+    xcopy($root . '/template', $cRoot);
 
-    $document = $cRoot . "\\word\\document.xml";
+    $document = $cRoot . "/word/document.xml";
 
     $documentData = file_get_contents($document);
 
