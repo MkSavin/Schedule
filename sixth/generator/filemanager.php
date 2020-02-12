@@ -71,10 +71,15 @@ function zip($folder, $zippath) {
         return false;
     }
 
-    $pathInfo = pathInfo($folder);
-    $dirname = $pathInfo['dirname'];
-    $basename = $pathInfo['basename'];
+    _zip($folder, $zip, strlen("$folder/"));
 
-    _zip($folder, $zip, strlen("$dirname\\$basename\\"));
+}
 
+function rmdir_recursive($dir) {
+    foreach(scandir($dir) as $file) {
+        if ('.' === $file || '..' === $file) continue;
+        if (is_dir("$dir/$file")) rmdir_recursive("$dir/$file");
+        else unlink("$dir/$file");
+    }
+    rmdir($dir);
 }

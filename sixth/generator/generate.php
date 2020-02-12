@@ -1,5 +1,9 @@
 <?php
 
+header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+header("Cache-Control: post-check=0, pre-check=0", false);
+header("Pragma: no-cache");
+
 $studentName = trim(strip_tags($_GET["student-name"])) ?? " ";
 $studentGroup = trim(strip_tags($_GET["student-group"])) ?? "ПРИ-117";
 $teacherName = trim(strip_tags($_GET["teacher-name"])) ?? " ";
@@ -15,12 +19,12 @@ include 'filemanager.php';
 
 $hash = md5($studentName . "!-=" . $studentGroup . "!-=" . $teacherName . "!-=" . $teacherGroup . "!-=" . $discipline . "!-=" . $workNumber . "!-=" . $city . "!-=" . $year);
 
-$cRoot = $root . '/cache/' . $hash;
+$cRoot = $root . '/cache'.'/' . $hash;
 
 if (!is_dir($cRoot) || !file_exists($cRoot . ".docx")) {
 
     if (is_dir($cRoot)) {
-        rmdir($cRoot);
+        rmdir_recursive($cRoot);
     }
 
     xcopy($root . '/template', $cRoot);
@@ -55,6 +59,5 @@ if (!is_dir($cRoot) || !file_exists($cRoot . ".docx")) {
 echo json_encode([
     "status" => "ok",
     "file" => str_replace($_SERVER['DOCUMENT_ROOT'], '', str_replace('\\', '/', $cRoot)) . '.docx',
-    "filfe" => $_SERVER['DOCUMENT_ROOT'],
     "loadname" => $studentGroup . "-" . $discipline . "#" . $workNumber . "-" . $studentName . ".docx",
 ]);
