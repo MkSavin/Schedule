@@ -56,8 +56,18 @@ if (!is_dir($cRoot) || !file_exists($cRoot . ".docx")) {
 
 }
 
+$logDir = $root . "/../" . "logs/generator/";
+
+if (!is_dir($logDir)) {
+    mkdir($logDir);
+}
+
+$loadname = str_replace('-', '', $studentGroup) . "-" . $discipline . "#" . $workNumber . "-" . $studentName . ".docx";
+
+file_put_contents($logDir . date('Y.m.d') . ".log", date("H:i:s") . ": " . $loadname . "\n", FILE_APPEND);
+
 echo json_encode([
     "status" => "ok",
     "file" => str_replace($_SERVER['DOCUMENT_ROOT'], '', str_replace('\\', '/', $cRoot)) . '.docx',
-    "loadname" => $studentGroup . "-" . $discipline . "#" . $workNumber . "-" . $studentName . ".docx",
+    "loadname" => $loadname,
 ]);

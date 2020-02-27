@@ -18,6 +18,10 @@ body {
 	overflow: hidden
 }
 
+body.darktheme {
+	background: #2B3953
+}
+
 a {
 	text-decoration: none
 }
@@ -70,7 +74,7 @@ label {
 
 .alert-success {
     color: #fff;
-    background: linear-gradient(to right, #a0c656 0%, #7bba67 100%)
+    background: linear-gradient(to right, #658822 0%, #336823 100%)
 }
 
 .alert-success .alert-link {
@@ -95,6 +99,10 @@ label {
     max-width: 100%
 }
 
+body.darktheme .button, body.darktheme .control {
+	border-color: #2B3953;
+}
+
 .button, .control {
 	font-size: 16px;
     padding: 8px 14px;
@@ -106,21 +114,36 @@ input .control {
 	cursor: text
 }
 
+body.darktheme .button {
+	background: #2B3953;
+}
+
 .button {
 	padding-left: 12px;
 	background: #fff;
 	cursor: pointer
 }
+
+body.darktheme.blue .button {
+	background: linear-gradient(to right, #2783d2 0%, #1167b2 100%);
+}
+
 .button.blue {
 	background: linear-gradient(to right, #389ef6 0%, #389ef6 100%);
 	color: #fff;
 	border-color: transparent
 }
 
-.button:hover {
-	background: rgba(201, 213, 222, .2);
+body.darktheme .button:hover {
+	background: rgba(43, 57, 83, .2);
 	color: #c7d4dd;
-	border-color: #c7d4dd
+	border-color: #2B3953
+}
+
+.button:hover {
+    background: rgba(201, 213, 222, .2);
+    color: #c7d4dd;
+    border-color: #c7d4dd;
 }
 
 .button>img {
@@ -138,6 +161,11 @@ input .control {
 
 .form-group {
     margin-bottom: 1rem
+}
+
+body.darktheme .form-group .control {
+	background: #2B3953;
+	color: #fff
 }
 
 .form-group .control {
@@ -159,6 +187,10 @@ input .control {
 	color: #b7c8d4
 }
 
+body.darktheme .colorbubble > span {
+	background: linear-gradient(to right, #546065, #414d53)
+}
+
 .colorbubble > span {
 	display: inline-block;
 	width: 32px;
@@ -171,6 +203,20 @@ input .control {
 	font-size: 15px;
 	margin-right: 10px;
 	background: linear-gradient(to right, #c6d7e0, #b8d0de)
+}
+
+
+body.darktheme .colorbubble.red > span {
+	background: linear-gradient(to right, #d57b72 0%, #a93b5d 100%)
+}
+body.darktheme .colorbubble.purple > span {
+	background: linear-gradient(to right, #866e97 0%, #6f4486 100%)
+}
+body.darktheme .colorbubble.blue > span {
+	background: linear-gradient(to right, #2783d2 0%, #1167b2 100%)
+}
+body.darktheme .colorbubble.green > span {
+	background: linear-gradient(to right, #658822 0%, #336823 100%)
 }
 
 .colorbubble.red > span {
@@ -192,12 +238,22 @@ table th {
 	text-transform: uppercase
 }
 
+body.darktheme table td, body.darktheme table th {
+	border-bottom: 1px solid #252f42
+}
+
 table td, table th {
 	border-bottom: 1px solid #c7d4dd
 }
 
 table th, table td.dtime, table td.timeout {
 	padding: 20px 16px;
+}
+
+body.darktheme  table th, body.darktheme  table td {
+	font-weight: 400;
+	border-right: 1px solid #252f42;
+	position: relative
 }
 
 table th, table td {
@@ -222,6 +278,10 @@ header, footer {
 	padding: 20px 60px;
 	z-index: 1;
 	box-sizing: border-box
+}
+
+body.darktheme header {
+	border-bottom-color: #252f42;
 }
 
 header {
@@ -286,15 +346,23 @@ main table {
 	min-width: 1800px
 }
 
+body.darktheme table .timeout {
+	background: rgba(37, 47, 66, .56);
+}
+
 table .timeout {
 	padding: 13px 16px!important;
 	font-size: 18px;
 	font-style: italic;
-	background: rgba(246, 248, 249, 0.56)
+	background: rgba(246, 248, 249, .56)
 }
 
 table td:not(.timeout) {
 	padding: 46px 16px
+}
+
+body.darktheme table td>div {
+	background: linear-gradient(to right, #546065, #414d53);
 }
 
 table td>div {
@@ -336,6 +404,19 @@ table td.long-3>div {
 
 table td>div * {
 	color: inherit
+}
+
+body.darktheme table td>div.red {
+	background: linear-gradient(to right, #d57b72 0%, #a93b5d 100%)
+}
+body.darktheme table td>div.purple {
+	background: linear-gradient(to right, #866e97 0%, #6f4486 100%)
+}
+body.darktheme table td>div.blue {
+	background: linear-gradient(to right, #2783d2 0%, #1167b2 100%)
+}
+body.darktheme table td>div.green {
+	background: linear-gradient(to right, #658822 0%, #336823 100%)
 }
 
 table td>div.red {
@@ -445,6 +526,11 @@ table td>div .rsb .couple_name {
 }
 
 /* Футтер */
+body.darktheme footer {
+	background: #252f42;
+	border-top: 1px solid #252f42;
+}
+
 footer {
 	position: absolute;
 	bottom: 0;
@@ -467,21 +553,32 @@ footer > div:last-of-type {
 	margin-right: 0
 }
 
-.copyright {
+.copyright, .theme-changer {
 	color: #8d59bf;
 	cursor: pointer
 }
 
-.copyright:hover {
+.copyright:hover, .theme-changer:hover {
 	opacity: .7
 }
 
-.copyright:active {
+.copyright:active, .theme-changer:active {
 	opacity: .5
 }
 
 .copyright > span {
-	background: linear-gradient(to right, #5a59a7 0%,#9459c2 100%);
+	background: linear-gradient(to right, #5a59a7 0%,#9459c2 100%)
+}
+
+.theme-changer > span {
+	background: linear-gradient(to right, #2B3953 0%, #252f42 100%)
+}
+
+body.darktheme .theme-changer > span {
+	background: linear-gradient(to right, #389ef6 0%, #389ef6 100%)
+}
+
+.copyright > span, .theme-changer > span {
 	padding-top: 5px;
 	padding-left: 5px;
 	box-sizing: border-box;
@@ -596,13 +693,17 @@ footer > div:last-of-type {
 	opacity: .8
 }
 
+body.darktheme .modal {
+	background: #252f42;
+}
+
 .modal {
 	position: absolute;
 	top: 0;
 	bottom: 0;
 	width: 50%;
 	background: #fff;
-	box-shadow: -5px 0 50px rgba(45,93,111,.1);
+	box-shadow: -5px 0 50px rgba(45, 93, 111, .1);
 	padding: 45px;
 	box-sizing: border-box
 }
@@ -656,6 +757,10 @@ footer > div:last-of-type {
 	color: #fff!important
 }
 
+body.darktheme .modal .file .content .text, body.darktheme .modal .file .content .info {
+	color: #c7d4dd;
+}
+
 .modal .file .content .text, .modal .file .content .info {
 	position: absolute;
 	top: 15px;
@@ -666,6 +771,10 @@ footer > div:last-of-type {
 	overflow: hidden;
 	font-size: 15px;
 	word-break: break-word
+}
+
+body.darktheme .modal .file .content .info {
+	opacity: .3
 }
 
 .modal .file .content .info {
@@ -684,10 +793,14 @@ footer > div:last-of-type {
 	opacity: .7
 }
 
+body.darktheme .modal .file .content {
+	box-shadow: 0 0 20px rgba(22, 24, 26, .3)
+}
+
 .modal .file .content {
 	height: 120px;
 	border-radius: 5px;
-	box-shadow: 0 0 20px rgba(45, 93, 111, 0.15)
+	box-shadow: 0 0 20px rgba(45, 93, 111, .15)
 }
 
 .modal .file .content>img {
@@ -715,6 +828,10 @@ footer > div:last-of-type {
 }
 .modal .file.pdf .content .text, .modal .file.pdf .content .info, .modal .file.pdf .title {
 	color: rgb(251, 127, 164)
+}
+
+body.darktheme .modal .file.link .content .text, body.darktheme .modal .file.link .content .info, body.darktheme .modal .file.link .title {
+	color: #c7d4dd;
 }
 
 .modal .file.link .type, .modal .file.link:hover .content {

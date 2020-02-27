@@ -48,7 +48,7 @@ $(function(){
         }
 
         $('table td>div:not('+($(this).data(!shifted||typeof($(this).data('shift-selector')) == 'undefined'?'selector':'shift-selector'))+')').fadeTo(300, 1);
-        $(selector).fadeTo(300, .3);
+        $(selector).fadeTo(300, .25);
 
         SetParallel($(this).data('weektype') != "denum");
     }, function(){
@@ -135,7 +135,7 @@ $(function(){
 
     NormalizeOpacity = function(week) {
         $('.'+(GetWeekType(week)?'':'de')+'num').fadeTo(300, 1);
-        $('.'+(!GetWeekType(week)?'':'de')+'num:not(.' +(GetWeekType(week)?'':'de')+'num)').fadeTo(300, .56);
+        $('.'+(!GetWeekType(week)?'':'de')+'num:not(.' +(GetWeekType(week)?'':'de')+'num)').fadeTo(300, .36);
     }
 
     SetParallel = function(weektype) {
@@ -233,5 +233,10 @@ $(function(){
             }
         });
     });
-    
+   
+    $(document).on('click', '.js-theme-changer', function(e) {
+        $('body').toggleClass('darktheme');
+        
+        Cookies.set('darktheme', $('body').hasClass('darktheme'));
+    });
 });
