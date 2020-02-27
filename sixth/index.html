@@ -12,140 +12,191 @@
 	<meta property="og:type" content="article">
 	<meta property="og:url" content="//dl.mksavin.ru/schedule/sixth/">
 </head>
-<body>
+<body class="<?=$_COOKIE['darktheme'] == 'true' ? 'darktheme' : ''?>">
 	<link rel="stylesheet" href="engine/css.php?p=perfectscrollbar">
 	<div class="overlay" id="modal_files">
 		<span class="close">
 			<img src="img/close.png" alt="" width="32" height="32">
 			<span>Кликните вне окна чтобы закрыть</span>
 		</span>
-		<div class="modal right">
-			<div class="title">Файлы</div>
-			<div class="container ps">
-			<?
-			// Сканируем папку
-			$files = array_diff(scandir('./dl/'), ["..", "."]);
-			
-			// Проходимся по файлам
-			foreach($files as $key => $file){
+		<div class="modal right book">
+			<div class="page active" data-page-id="1">
+				<div class="title">Файлы <a href="#" class="button short ml-2 page-navigator" data-target="2">Сгенерировать шаблон</a></div>
+				<div class="container ps">
+				<?
+				// Сканируем папку
+				$files = array_diff(scandir('./dl/'), ["..", "."]);
+				
+				// Проходимся по файлам
+				foreach($files as $key => $file){
 
-				// Запоминаем название файла с родн. кодировкой
-				$_file = $file;
-				// Меняем кодировку
-				$file = Encoding::ToUTF8($file);
+					// Запоминаем название файла с родн. кодировкой
+					$_file = $file;
+					// Меняем кодировку
+					$file = Encoding::ToUTF8($file);
 
-				// Данные о файле
-				$filedata = explode(".", $file);
+					// Данные о файле
+					$filedata = explode(".", $file);
 
-				// Получаем тип и название. PHP очень плохо определяет стандартными методами тип файла
-				$type = $filedata[count($filedata)-1];
-				if(is_array($filedata))
-					unset($filedata[count($filedata)-1]);
-				$name = implode(".", $filedata);
+					// Получаем тип и название. PHP очень плохо определяет стандартными методами тип файла
+					$type = $filedata[count($filedata)-1];
+					if(is_array($filedata))
+						unset($filedata[count($filedata)-1]);
+					$name = implode(".", $filedata);
 
-				if(!$type)
-					$type = "";
+					if(!$type)
+						$type = "";
 
-				// Инициализация
-				$image = false;
-				$contents = false;
-				$type_r = strtoupper($type);
-				$contentstyle = "";
-				$link = "";
-				$nosize = false;
+					// Инициализация
+					$image = false;
+					$contents = false;
+					$type_r = strtoupper($type);
+					$contentstyle = "";
+					$link = "";
+					$nosize = false;
 
-				// Получаем данные по типам
-				switch($type) {
-					case "png":
-					case "jpg":
-					case "svg":
-					case "gif":
-						$image = $file;
+					// Получаем данные по типам
+					switch($type) {
+						case "png":
+						case "jpg":
+						case "svg":
+						case "gif":
+							$image = $file;
+							break;
+
+						case "link":
+							$contents = mb_substr(file_get_contents('./dl/'.$_file), 0, 150);
+							$contents = Encoding::ToUTF8($contents);
+							$type_r = "ССЫЛКА";
+							$link = $contents;
+							$nosize = true;
 						break;
 
-					case "link":
-						$contents = mb_substr(file_get_contents('./dl/'.$_file), 0, 150);
-						$contents = Encoding::ToUTF8($contents);
-						$type_r = "ССЫЛКА";
-						$link = $contents;
-						$nosize = true;
-					break;
+						case "txt":
+							$contents = mb_substr(file_get_contents('./dl/'.$_file), 0, 150);
+							$contents = Encoding::ToUTF8($contents);
+							$type_r = "ТЕКСТ";
+							break;
 
-					case "txt":
-						$contents = mb_substr(file_get_contents('./dl/'.$_file), 0, 150);
-						$contents = Encoding::ToUTF8($contents);
-						$type_r = "ТЕКСТ";
-						break;
+						case "cs":
+							$type_r = "C#";
+							break;
 
-					case "cs":
-						$type_r = "C#";
-						break;
+						case "pas":
+							$type_r = "ПАСКАЛЬ";
+							break;
 
-					case "pas":
-						$type_r = "ПАСКАЛЬ";
-						break;
+						case "pdf":
+							$type_r = "PDF";
+							break;
 
-					case "pdf":
-						$type_r = "PDF";
-						break;
+						case "doc":
+						case "docx":
+							$type_r = "W";
+							break;
+					}
 
-					case "doc":
-					case "docx":
-						$type_r = "W";
-						break;
-				}
+					if($image) {
+						$contentstyle = ' style="background: url(dl/'.rawurlencode($image).') no-repeat center/cover!important"';
+						$image = " ";
+					}
 
-				if($image) {
-					$contentstyle = ' style="background: url(dl/'.rawurlencode($image).') no-repeat center/cover!important"';
-					$image = " ";
-				}
+					if(!$image && file_exists("./img/filetypes/".$type.".png"))
+						$image = "img/filetypes/".$type.".png";
 
-				if(!$image && file_exists("./img/filetypes/".$type.".png"))
-					$image = "img/filetypes/".$type.".png";
+					if(file_exists("./img/filetypes/".$type."_white.png"))
+						$image_white = "img/filetypes/".$type."_white.png";
+					else 
+						$image_white = $image;
 
-				if(file_exists("./img/filetypes/".$type."_white.png"))
-					$image_white = "img/filetypes/".$type."_white.png";
-				else 
-					$image_white = $image;
+					$filesize = filesize('./dl/'.$_file);
 
-				$filesize = filesize('./dl/'.$_file);
+					$filesize_suffix = ["Б", "КБ", "МБ", "ГБ", "ТБ", "ПБ"];
+					$i = 0;
 
-				$filesize_suffix = ["Б", "КБ", "МБ", "ГБ", "ТБ", "ПБ"];
-				$i = 0;
+					while ($filesize > 1024) {
+						$filesize = intval($filesize / 1024 * 10) / 10;
+						$i++;
+					}
 
-				while ($filesize > 1024) {
-					$filesize = intval($filesize / 1024 * 10) / 10;
-					$i++;
-				}
+					$filesize_s = $filesize." ".$filesize_suffix[$i];
 
-				$filesize_s = $filesize." ".$filesize_suffix[$i];
-
-			?>
-				<a href="<?=$link ? trim(str_replace('\n', '', $link)) : 'dl/'.rawurlencode($file)?>" download="<?=$file?>" class="file dl <?=$type?>">
-					<div class="content"<?=$contentstyle?>>
-						<?if(!$contents){?>
-						<img src="<?=$image?>" class="unhovered" alt="">
-						<img src="<?=$image_white?>" class="hovered" alt="">
-						<?}?>
-						<?if(!$nosize){?>
-						<span class="info">
-							<span class="fl_l"></span>
-							<span class="fl_r"><img src="img/download.svg" alt="" width="10"> <?=$filesize_s?></span>
-						</span>
-						<?}?>
-						<span class="text">
-							<?=$contents?>
-						</span>
+				?>
+					<a href="<?=$link ? trim(str_replace('\n', '', $link)) : 'dl/'.rawurlencode($file)?>" download="<?=$file?>" class="file dl <?=$type?>">
+						<div class="content"<?=$contentstyle?>>
+							<?if(!$contents){?>
+							<img src="<?=$image?>" class="unhovered" alt="">
+							<img src="<?=$image_white?>" class="hovered" alt="">
+							<?}?>
+							<?if(!$nosize){?>
+							<span class="info">
+								<span class="fl_l"></span>
+								<span class="fl_r"><img src="img/download.svg" alt="" width="10"> <?=$filesize_s?></span>
+							</span>
+							<?}?>
+							<span class="text">
+								<?=$contents?>
+							</span>
+						</div>
+						<div class="data">
+							<span class="type"><?=$type_r?></span>
+							<span class="title"><?=$name?></span>
+						</div>
+					</a>
+				<?}?>
+				<?if(count($files) == 0){?>
+					Файлов, приложенных к сайту, нет
+				<?}?>
+				</div>
+			</div>
+			<div class="page" data-page-id="2">
+				<div class="title">Генератор шаблонов <a href="#" class="button short ml-2 page-navigator" data-target="1">Файлы</a></div>
+				<form class="form js-generator-form">
+					<div class="row">
+						<div class="col mr-27p">
+							<div class="form-group">
+								<label for="">Ваше ФИО</label>
+								<input type="text" name="student-name" class="control js-generator-form-name">
+							</div>
+							<div class="form-group">
+								<label for="">Преподаватель</label>
+								<input type="text" name="teacher-name" class="control">
+							</div>
+							<div class="form-group">
+								<label for="">Дисциплина</label>
+								<input type="text" name="discipline" class="control">
+							</div>
+							<div class="form-group">
+								<label for="">Город</label>
+								<input type="text" name="city" class="control" value="Владимир">
+							</div>
+							<div class="form-group">
+								<button type="submit" class="button blue" onclick="ym(45535101, 'reachGoal', 'generator_generate', {name: $('.js-generator-form-name').val()}); return true;">Сгенерировать</button>
+							</div>
+						</div>
+						<div class="col">
+							<div class="form-group">
+								<label for="">Группа</label>
+								<input type="text" name="student-group" class="control" value="ПРИ-117">
+							</div>
+							<div class="form-group">
+								<label for="">Должность</label>
+								<input type="text" name="teacher-group" class="control">
+							</div>
+							<div class="form-group">
+								<label for="">Номер работы</label>
+								<input type="text" name="work-number" class="control">
+							</div>
+							<div class="form-group">
+								<label for="">Год</label>
+								<input type="text" name="year" class="control" value="<?=date('Y')?>">
+							</div>
+						</div>
 					</div>
-					<div class="data">
-						<span class="type"><?=$type_r?></span>
-						<span class="title"><?=$name?></span>
-					</div>
-				</a>
-			<?}?>
-			<?if(count($files) == 0){?>
-				Файлов, приложенных к сайту, нет
-			<?}?>
+				</form>
+				<div class="generator-success alert alert-success d-none">
+					Ваш файл: <a href="#" class="js-link alert-link" download="file.docx">Файл</a>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -253,7 +304,7 @@
 						</div>
 					</div>
 				</td>
-				<td class="fri splitted">
+				<td class="fri splitted long-2">
 					<div class="purple num lab">
 						<div class="sb">
 							<div>1</div>
@@ -355,30 +406,7 @@
 						</div>
 					</div>
 				</td>
-				<td class="fri splitted">
-					<div class="purple num lab">
-						<div class="sb">
-							<div>2</div>
-							<div class="bottom">ч</div>
-						</div>
-						<div class="rsb">
-							<div class="group-location">Б <span>314-3</span></div>
-							<div class="couple_name">АдБ ПИС</div>
-							<div class="teacher">Спирин</div>
-						</div>
-					</div>
-					<div class="red denum lab">
-						<div class="sb">
-							<div>2</div>
-							<div class="bottom">з</div>
-						</div>
-						<div class="rsb">
-							<div class="group-location">А <span>314-3</span></div>
-							<div class="couple_name">АдБ ПИС</div>
-							<div class="teacher">Спирин</div>
-						</div>
-					</div>
-				</td>
+				<td class="fri"></td>
 			</tr>
 			<tr>
 				<td class="timeout" colspan="6">11:50 - 12:10  ПЕРЕМЕНА</td>
@@ -506,11 +534,12 @@
 	</main>
 	<footer>
 		<a href="//elerance.com" class="copyright" title="© Elerance Studio, Максим Савин"><span><img src="img/elerance_wt.svg" width="26" height="26" alt="Elerance logo"></span></a>
+		<a href="#" class="theme-changer js-theme-changer" title="Сменить тему"><span><img src="img/light_icon_wt.svg" width="26" height="26" alt="Elerance logo"></span></a>
 		<div class="access">
 			<a href="#" class="button"><img src="img/key.svg" alt="К" height="18">Доступы</a>
 			<div>
 				<img src="img/user.svg" alt="U" height="16"> <input type="text" name="l" spellcheck="false" readonly value="stu-pri117" id="user">
-				<img src="img/key.svg" alt="К" height="16"> <input type="text" name="p" spellcheck="false" readonly value="<?=include 'pass.php'?>" id="key">
+				<img src="img/key.svg" alt="К" height="16"> <input type="text" name="p" spellcheck="false" readonly value="<?=@include 'pass.php'?>" id="key">
 			</div>
 		</div>
 		<div class="colorbubble red" data-shift-selector=":not(.red)" data-selector=".purple"><span>А</span> Группа <b>А</b></div>
@@ -521,8 +550,9 @@
 		<div class="colorbubble" data-selector=":not(.lab)"><span></span> Лабораторные</div>
 		<div class="colorbubble" data-selector=":not(.lection)"><span></span> Лекции</div>
 	</footer>
+	<script src="https://cdn.jsdelivr.net/npm/js-cookie@beta/dist/js.cookie.min.js"></script>
 	<script src="engine/js.php?p=jquery-3.3.1,perfectscrollbar,date.format,schedule"></script>
-	<script type="text/javascript" >!function(e,t,a){(t[a]=t[a]||[]).push(function(){try{t.yaCounter45535101=new Ya.Metrika({id:45535101,clickmap:!0,trackLinks:!0,accurateTrackBounce:!0,webvisor:!0})}catch(e){}});var c=e.getElementsByTagName("script")[0],n=e.createElement("script"),r=function(){c.parentNode.insertBefore(n,c)};n.type="text/javascript",n.async=!0,n.src="https://mc.yandex.ru/metrika/watch.js","[object Opera]"==t.opera?e.addEventListener("DOMContentLoaded",r,!1):r()}(document,window,"yandex_metrika_callbacks");</script>
+	<script type="text/javascript">(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})(window,document,"script","https://mc.yandex.ru/metrika/tag.js","ym");ym(45535101,"init",{clickmap:!0,trackLinks:!0,accurateTrackBounce:!0,webvisor:!0})</script>
 	<noscript><div><img src="https://mc.yandex.ru/watch/45535101" style="position:absolute; left:-9999px;" alt=""/></div></noscript>
 	<!--Эта страница находится под охраной святой статьи 146 УК РФ-->
 </body>

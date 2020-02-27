@@ -48,7 +48,7 @@ $(function(){
         }
 
         $('table td>div:not('+($(this).data(!shifted||typeof($(this).data('shift-selector')) == 'undefined'?'selector':'shift-selector'))+')').fadeTo(300, 1);
-        $(selector).fadeTo(300, .3);
+        $(selector).fadeTo(300, .25);
 
         SetParallel($(this).data('weektype') != "denum");
     }, function(){
@@ -135,7 +135,7 @@ $(function(){
 
     NormalizeOpacity = function(week) {
         $('.'+(GetWeekType(week)?'':'de')+'num').fadeTo(300, 1);
-        $('.'+(!GetWeekType(week)?'':'de')+'num:not(.' +(GetWeekType(week)?'':'de')+'num)').fadeTo(300, .56);
+        $('.'+(!GetWeekType(week)?'':'de')+'num:not(.' +(GetWeekType(week)?'':'de')+'num)').fadeTo(300, .36);
     }
 
     SetParallel = function(weektype) {
@@ -194,10 +194,49 @@ $(function(){
     UpdateTime();
     setInterval(UpdateTime, 100*60*10);
 
-    $('.overlay > *:not(.close)').click(function(e) {
-        e.stopPropagation();
-    });
-    $('.overlay').click(function() {
+    $('.overlay').click(function(e) {
+        if ($(e.target).parents('.modal').length || $(e.target).hasClass('modal')) {
+            return;
+        }
         $(this).fadeOut(200);
+    });
+
+    $(document).on('click', '.page-navigator', function(e) {
+        e.preventDefault();
+        
+        var self = $(this);
+        var book = self.parents('.book');
+        book.find('.page:not([data-page-id="' + self.data('target') + '"])').removeClass('active');
+        book.find('.page[data-page-id="' + self.data('target') + '"]').addClass('active');
+    });
+    
+    $(document).on('click', '.toggle-data', function() {
+        var self = $(this);
+        var text = self.html();
+        self.html(self.data('toggle-text'));
+        self.data('toggle-text', text);
+    });
+
+    $(document).on('submit', '.js-generator-form', function(e) {
+        e.preventDefault();
+        var self = $(this);
+
+        $.ajax({
+            url: 'generator/generate.php',
+            data: self.serialize(),
+            success: function(data) {
+                data = JSON.parse(data);
+                var link = $('.generator-success').removeClass('d-none').find('.js-link');
+                link.html(data.loadname);
+                link.attr('download', data.loadname);
+                link.attr('href', data.file);
+            }
+        });
+    });
+   
+    $(document).on('click', '.js-theme-changer', function(e) {
+        $('body').toggleClass('darktheme');
+        
+        Cookies.set('darktheme', $('body').hasClass('darktheme'));
     });
 });
