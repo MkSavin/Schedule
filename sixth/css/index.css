@@ -408,6 +408,11 @@ footer > div:last-of-type {
 	margin-right: 10px
 }
 
+body.darktheme .access div {
+	border-left: 1px solid rgba(199, 212, 221, .1);
+	border-right: 1px solid rgba(199, 212, 221, .1)
+}
+
 .access div {
 	display: none;
 	float: right;
@@ -422,6 +427,10 @@ footer > div:last-of-type {
 .access div>img {
 	vertical-align: text-top;
 	margin-top: 2px
+}
+
+body.darktheme .access div input {
+	background: #252f42
 }
 
 .access div input {
