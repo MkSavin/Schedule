@@ -237,6 +237,6 @@ $(function(){
     $(document).on('click', '.js-theme-changer', function(e) {
         $('body').toggleClass('darktheme');
         
-        Cookies.set('darktheme', $('body').hasClass('darktheme'));
+        Cookies.set('darktheme', $('body').hasClass('darktheme'), { expires: 365 });
     });
 });
