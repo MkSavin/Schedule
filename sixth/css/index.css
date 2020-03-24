@@ -110,7 +110,11 @@ body.darktheme .button, body.darktheme .control {
 	border-radius: 5px
 }
 
-input .control {
+select.control {
+	cursor: pointer
+}
+
+input.control {
 	cursor: text
 }
 
@@ -121,7 +125,9 @@ body.darktheme .button {
 .button {
 	padding-left: 12px;
 	background: #fff;
-	cursor: pointer
+	cursor: pointer;
+	white-space: nowrap;
+	display: inline-block
 }
 
 body.darktheme.blue .button {
@@ -143,7 +149,7 @@ body.darktheme .button:hover {
 .button:hover {
     background: rgba(201, 213, 222, .2);
     color: #c7d4dd;
-    border-color: #c7d4dd;
+    border-color: #c7d4dd
 }
 
 .button>img {
@@ -625,6 +631,10 @@ body.darktheme .access div input {
 	width: 80px;
 	background: #fff;
 	font-size: 16px
+}
+
+.access .button {
+	margin-top: -5px
 }
 
 .colorbubble_container {

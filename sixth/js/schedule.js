@@ -220,7 +220,9 @@ $(function(){
     $(document).on('submit', '.js-generator-form', function(e) {
         e.preventDefault();
         var self = $(this);
-
+        var studentName = self.find('.js-generator-form-name').val();
+        Cookies.set('studentName', studentName, { expires: 365 });
+        
         $.ajax({
             url: 'generator/generate.php',
             data: self.serialize(),
@@ -234,6 +236,35 @@ $(function(){
         });
     });
    
+    $(document).on('click', '.js-generator-form-settings-more-toggle', function() {
+        $('.js-generator-form-settings-more').toggle(300);
+        $('.js-generator-form-settings-more-toggle-group').toggle();
+    });
+
+    $(document).on('click', '.js-text-toggle', function() {
+
+        var self = $(this);
+
+        var toggleTarget = self.find('.js-toggle-target');
+        if (!toggleTarget.length) {
+            toggleTarget = self;
+        }
+
+        var oldText = toggleTarget.html();
+        toggleTarget.html(self.data('toggle-text'));
+        self.data('toggle-text', oldText);
+
+    });
+
+    $(document).on('change', '.js-generator-form-discipline-select', function() {
+        var self = $(this);
+        var option = self.find(':selected');
+
+        $('.js-generator-form-teacher').val(option.data('teacher'));
+        $('.js-generator-form-teacher-position').val(option.data('teacher-position'));
+        $('.js-generator-form-discipline').val(option.val());
+    });
+
     $(document).on('click', '.js-theme-changer', function(e) {
         $('body').toggleClass('darktheme');
         

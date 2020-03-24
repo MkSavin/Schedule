@@ -156,40 +156,75 @@
 						<div class="col mr-27p">
 							<div class="form-group">
 								<label for="">Ваше ФИО</label>
-								<input type="text" name="student-name" class="control js-generator-form-name">
+								<input type="text" required name="student-name" class="control js-generator-form-name" value="<?=$_COOKIE['studentName']?>">
 							</div>
+							<div class="form-group js-generator-form-settings-more-toggle-group">
+								<label for="">Дисциплина</label>
+								<select name="discipline" class="control js-generator-form-discipline-select">
+									<option value="">Выберите дисциплину</option>
+									<option value="Геоинформационные технологии" data-teacher="Монахова Г.Е" data-teacher-group="">ГИТ - Монахова</option>
+									<option value="Основы разработки веб-приложений" data-teacher="Козаев А.Т" data-teacher-group="">ОРВП - Козаев</option>
+									<option value="Администратирование и безопасность программных информационных систем" data-teacher="Спирин И.В" data-teacher-group="">АдБ ПИС - Спирин</option>
+									<option value="Интегрированные информационные системы" data-teacher="Ланская М.С" data-teacher-group="">ИИС - Ланская</option>
+									<option value="CASE-технологии" data-teacher="Андрианова В.И" data-teacher-group="">CASE - Андрианова</option>
+									<option value="Распределенные программные системы" data-teacher="Трифонов Д.А" data-teacher-group="">РПС - Трифонов</option>
+									<option value="Тестирование ПО" data-teacher="Породникова П.А" data-teacher-group="">Тест. - Породникова</option>
+								</select>
+							</div>
+							<div class="form-group js-generator-form-settings-more-toggle-group" style="display:none">
+								<label for="">Дисциплина</label>
+								<input type="text" name="discipline" class="control js-generator-form-discipline">
+							</div>
+						</div>
+						<div class="col">
+							<div class="form-group js-generator-form-settings-more-toggle-group">
+								<label for="">Не хватает настроек?</label>
+								<a href="#" class="button js-generator-form-settings-more-toggle">
+									<img src="img/settings.svg" alt="К" height="18">Больше настроек
+								</a>
+							</div>
+							<div class="form-group js-generator-form-settings-more-toggle-group" style="display:none">
+								<label for="">Много настроек?</label>
+								<a href="#" class="button js-generator-form-settings-more-toggle">
+									<img src="img/settings.svg" alt="К" height="18">Меньше настроек
+								</a>
+							</div>
+							<div class="form-group">
+								<label for="">Номер работы</label>
+								<input type="text" name="work-number" class="control">
+							</div>
+						</div>
+					</div>
+					<div class="row js-generator-form-settings-more" style="display:none">
+						<div class="col mr-27p">
 							<div class="form-group">
 								<label for="">Преподаватель</label>
-								<input type="text" name="teacher-name" class="control">
-							</div>
-							<div class="form-group">
-								<label for="">Дисциплина</label>
-								<input type="text" name="discipline" class="control">
+								<input type="text" name="teacher-name" class="control js-generator-form-teacher">
 							</div>
 							<div class="form-group">
 								<label for="">Город</label>
 								<input type="text" name="city" class="control" value="Владимир">
 							</div>
 							<div class="form-group">
-								<button type="submit" class="button blue" onclick="ym(45535101, 'reachGoal', 'generator_generate', {name: $('.js-generator-form-name').val()}); return true;">Сгенерировать</button>
+								<label for="">Год</label>
+								<input type="text" name="year" class="control" value="<?=date('Y')?>">
 							</div>
 						</div>
 						<div class="col">
 							<div class="form-group">
+								<label for="">Должность</label>
+								<input type="text" name="teacher-group" class="control js-generator-form-teacher-position">
+							</div>
+							<div class="form-group">
 								<label for="">Группа</label>
 								<input type="text" name="student-group" class="control" value="ПРИ-117">
 							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col mr-27p">
 							<div class="form-group">
-								<label for="">Должность</label>
-								<input type="text" name="teacher-group" class="control">
-							</div>
-							<div class="form-group">
-								<label for="">Номер работы</label>
-								<input type="text" name="work-number" class="control">
-							</div>
-							<div class="form-group">
-								<label for="">Год</label>
-								<input type="text" name="year" class="control" value="<?=date('Y')?>">
+								<button type="submit" class="button blue" onclick="ym(45535101, 'reachGoal', 'generator_generate', {name: $('.js-generator-form-name').val()}); return true;">Сгенерировать</button>
 							</div>
 						</div>
 					</div>
