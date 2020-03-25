@@ -56,7 +56,7 @@ if (!is_dir($cRoot) || !file_exists($cRoot . ".docx")) {
 
 }
 
-$logDir = $root . "/../" . "logs/generator/";
+$logDir = $root . "/logs/";
 
 if (!is_dir($logDir)) {
     mkdir($logDir);
