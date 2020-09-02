@@ -325,10 +325,10 @@
 				</td>
 			</tr>
 			<tr>
-				<td class="timeout" colspan="6">10:00 - 10:20  ПЕРЕМЕНА</td>
+				<td class="timeout" colspan="6">10:00 - 10:30  ПЕРЕМЕНА</td>
 			</tr>
 			<tr class="second">
-				<td class="dtime"><span class="time">10:20 - 11:50</span></td>
+				<td class="dtime"><span class="time">10:30 - 12:00</span></td>
 				<td class="mon splitted">
 					<div class="num lection">
 						<div class="sb">
@@ -383,12 +383,12 @@
 				</td>
 			</tr>
 			<tr>
-				<td class="timeout" colspan="6">11:50 - 12:10  ПЕРЕМЕНА</td>
+				<td class="timeout" colspan="6">12:00 - 12:30  ПЕРЕМЕНА</td>
 			</tr>
 			<tr class="third">
-				<td class="dtime"><span class="time">12:10 - 13:40</span></td>
+				<td class="dtime"><span class="time">12:30 - 14:00</span></td>
 				<td class="mon splitted">
-					<div class="num lection">
+					<div class="num practice">
 						<div class="sb">
 							<div>3</div>
 							<div class="bottom">ч</div>
@@ -416,7 +416,7 @@
 					<div class="invisible"></div>
 					<div class="denum practice">
 						<div class="sb">
-							<div>2</div>
+							<div>3</div>
 							<div class="bottom">з</div>
 						</div>
 						<div class="rsb">
@@ -443,13 +443,13 @@
 				<td class="fri"></td>
 			</tr>
 			<tr>
-				<td class="timeout" colspan="6">13:40 - 14:00  ПЕРЕМЕНА</td>
+				<td class="timeout" colspan="6">14:00 - 14:30  ПЕРЕМЕНА</td>
 			</tr>
 			<tr class="fourth">
-				<td class="dtime"><span class="time">14:00 - 15:30</span></td>
+				<td class="dtime"><span class="time">14:30 - 16:00</span></td>
 				<td class="mon splitted">
 					<div class="invisible"></div>
-					<div class="red denum lection">
+					<div class="red denum lab">
 						<div class="sb">
 							<div>4</div>
 							<div class="bottom">з</div>
@@ -478,10 +478,10 @@
 				<td class="fri"></td>
 			</tr>
 			<tr>
-				<td class="timeout" colspan="6">15:30 - 15:50  ПЕРЕМЕНА</td>
+				<td class="timeout" colspan="6">16:00 - 16:30  ПЕРЕМЕНА</td>
 			</tr>
 			<tr class="fifth">
-				<td class="dtime"><span class="time">15:50 - 17:20</span></td>
+				<td class="dtime"><span class="time">16:30 - 18:00</span></td>
 				<td class="mon splitted">
 					<div class="invisible"></div>
 					<div class="denum lection">
@@ -514,7 +514,8 @@
 				<td class="thu splitted">
 					<div class="purple num lab">
 						<div class="sb left">
-							<div>4</div>
+							<div>5</div>
+							<div class="bottom">ч</div>
 						</div>
 						<div class="rsb">
 							<div class="group-location">Б <span>314-3</span></div>
@@ -524,7 +525,8 @@
 					</div>
 					<div class="red denum lab">
 						<div class="sb left">
-							<div>4</div>
+							<div>5</div>
+							<div class="bottom">з</div>
 						</div>
 						<div class="rsb">
 							<div class="group-location">А <span>314-3</span></div>
@@ -536,10 +538,10 @@
 				<td class="fri"></td>
 			</tr>
 			<tr>
-				<td class="timeout" colspan="6">17:20 - 17:40  ПЕРЕМЕНА</td>
+				<td class="timeout" colspan="6">18:00 - 18:30  ПЕРЕМЕНА</td>
 			</tr>
 			<tr class="sixth">
-				<td class="dtime"><span class="time">17:40 - 19:10</span></td>
+				<td class="dtime"><span class="time">18:30 - 20:00</span></td>
 				<td class="mon"></td>
 				<td class="tue splitted">
 					<div class="invisible"></div>
@@ -560,6 +562,7 @@
 					<div class="purple num lab">
 						<div class="sb left">
 							<div>6</div>
+							<div class="bottom">ч</div>
 						</div>
 						<div class="rsb">
 							<div class="group-location">Б <span>314-3</span></div>
@@ -579,7 +582,7 @@
 			<a href="#" class="button"><img src="img/key.svg" alt="К" height="18">Доступы</a>
 			<div>
 				<img src="img/user.svg" alt="U" height="16"> <input type="text" name="l" spellcheck="false" readonly value="stu-pri117" id="user">
-				<img src="img/key.svg" alt="К" height="16"> <input type="text" name="p" spellcheck="false" readonly value="<?=@include 'pass.php'?>" id="key">
+				<img src="img/key.svg" alt="К" height="16"> <input type="text" name="p" spellcheck="false" readonly value="<?=(@include 'pass.php') ?: '*******'?>" id="key">
 			</div>
 		</div>
 		<div class="colorbubble red" data-shift-selector=":not(.red)" data-selector=".purple"><span>А</span> Группа <b>А</b></div>
