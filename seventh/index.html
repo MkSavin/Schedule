@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>ПРИ-117 - расписание седьмого семестра</title>
+	<link rel="icon" href="img/icon.ico">
+	<meta property="og:title" content="ПРИ-117 - расписание седьмого семестра">
+	<meta property="og:description" content="Интеграктивное расписание седьмого семестра группы ПРИ-117 института ИТиР ВлГУ">
+	<meta property="og:image" content="img/ogimg.png">
+	<meta property="og:type" content="article">
+	<meta property="og:url" content="//dl.mksavin.ru/schedule/sixth/">
+</head>
+<body class="<?=$_COOKIE['darktheme'] == 'true' ? 'darktheme' : ''?>">
+	<link rel="stylesheet" href="engine/css.php?p=perfectscrollbar">
+	<div class="overlay" id="modal_files">
+		<span class="close">
+			<img src="img/close.png" alt="" width="32" height="32">
+			<span>Кликните вне окна чтобы закрыть</span>
+		</span>
+		<div class="modal right book">
+			<div class="page active" data-page-id="1">
+				<div class="title">Файлы <a href="#" class="button short ml-2 page-navigator" data-target="2">Сгенерировать шаблон</a></div>
+				<div class="container ps">
+				<?
+				// Сканируем папку
+				$files = array_diff(scandir('./dl/'), ["..", "."]);
+				
+				// Проходимся по файлам
+				foreach($files as $key => $file){
+
+					// Запоминаем название файла с родн. кодировкой
+					$_file = $file;
+					// Меняем кодировку
+					$file = Encoding::ToUTF8($file);
+
+					// Данные о файле
+					$filedata = explode(".", $file);
+
+					// Получаем тип и название. PHP очень плохо определяет стандартными методами тип файла
+					$type = $filedata[count($filedata)-1];
+					if(is_array($filedata))
+						unset($filedata[count($filedata)-1]);
+					$name = implode(".", $filedata);
+
+					if(!$type)
+						$type = "";
+
+					// Инициализация
+					$image = false;
+					$contents = false;
+					$type_r = strtoupper($type);
+					$contentstyle = "";
+					$link = "";
+					$nosize = false;
+
+					// Получаем данные по типам
+					switch($type) {
+						case "png":
+						case "jpg":
+						case "svg":
+						case "gif":
+							$image = $file;
+							break;
+
+						case "link":
+							$contents = mb_substr(file_get_contents('./dl/'.$_file), 0, 150);
+							$contents = Encoding::ToUTF8($contents);
+							$type_r = "ССЫЛКА";
+							$link = $contents;
+							$nosize = true;
+						break;
+
+						case "txt":
+							$contents = mb_substr(file_get_contents('./dl/'.$_file), 0, 150);
+							$contents = Encoding::ToUTF8($contents);
+							$type_r = "ТЕКСТ";
+							break;
+
+						case "cs":
+							$type_r = "C#";
+							break;
+
+						case "pas":
+							$type_r = "ПАСКАЛЬ";
+							break;
+
+						case "pdf":
+							$type_r = "PDF";
+							break;
+
+						case "doc":
+						case "docx":
+							$type_r = "W";
+							break;
+					}
+
+					if($image) {
+						$contentstyle = ' style="background: url(dl/'.rawurlencode($image).') no-repeat center/cover!important"';
+						$image = " ";
+					}
+
+					if(!$image && file_exists("./img/filetypes/".$type.".png"))
+						$image = "img/filetypes/".$type.".png";
+
+					if(file_exists("./img/filetypes/".$type."_white.png"))
+						$image_white = "img/filetypes/".$type."_white.png";
+					else 
+						$image_white = $image;
+
+					$filesize = filesize('./dl/'.$_file);
+
+					$filesize_suffix = ["Б", "КБ", "МБ", "ГБ", "ТБ", "ПБ"];
+					$i = 0;
+
+					while ($filesize > 1024) {
+						$filesize = intval($filesize / 1024 * 10) / 10;
+						$i++;
+					}
+
+					$filesize_s = $filesize." ".$filesize_suffix[$i];
+
+				?>
+					<a href="<?=$link ? trim(str_replace('\n', '', $link)) : 'dl/'.rawurlencode($file)?>" download="<?=$file?>" class="file dl <?=$type?>">
+						<div class="content"<?=$contentstyle?>>
+							<?if(!$contents){?>
+							<img src="<?=$image?>" class="unhovered" alt="">
+							<img src="<?=$image_white?>" class="hovered" alt="">
+							<?}?>
+							<?if(!$nosize){?>
+							<span class="info">
+								<span class="fl_l"></span>
+								<span class="fl_r"><img src="img/download.svg" alt="" width="10"> <?=$filesize_s?></span>
+							</span>
+							<?}?>
+							<span class="text">
+								<?=$contents?>
+							</span>
+						</div>
+						<div class="data">
+							<span class="type"><?=$type_r?></span>
+							<span class="title"><?=$name?></span>
+						</div>
+					</a>
+				<?}?>
+				<?if(count($files) == 0){?>
+					Файлов, приложенных к сайту, нет
+				<?}?>
+				</div>
+			</div>
+			<div class="page" data-page-id="2">
+				<div class="title">Генератор шаблонов <a href="#" class="button short ml-2 page-navigator" data-target="1">Файлы</a></div>
+				<form class="form js-generator-form">
+					<div class="row">
+						<div class="col mr-27p">
+							<div class="form-group">
+								<label for="">Ваше ФИО</label>
+								<input type="text" required name="student-name" class="control js-generator-form-name" value="<?=$_COOKIE['studentName']?>">
+							</div>
+							<div class="form-group js-generator-form-settings-more-toggle-group">
+								<label for="">Дисциплина</label>
+								<select name="discipline" class="control js-generator-form-discipline-select">
+									<option value="">Выберите дисциплину</option>
+									<option value="Геоинформационные технологии" data-teacher="Монахова Г.Е" data-teacher-group="">ГИТ - Монахова</option>
+									<option value="Основы разработки веб-приложений" data-teacher="Козаев А.Т" data-teacher-group="">ОРВП - Козаев</option>
+									<option value="Администратирование и безопасность программных информационных систем" data-teacher="Спирин И.В" data-teacher-group="">АдБ ПИС - Спирин</option>
+									<option value="Интегрированные информационные системы" data-teacher="Ланская М.С" data-teacher-group="">ИИС - Ланская</option>
+									<option value="CASE-технологии" data-teacher="Андрианова В.И" data-teacher-group="">CASE - Андрианова</option>
+									<option value="Распределенные программные системы" data-teacher="Трифонов Д.А" data-teacher-group="">РПС - Трифонов</option>
+									<option value="Тестирование ПО" data-teacher="Породникова П.А" data-teacher-group="">Тест. - Породникова</option>
+								</select>
+							</div>
+							<div class="form-group js-generator-form-settings-more-toggle-group" style="display:none">
+								<label for="">Дисциплина</label>
+								<input type="text" name="discipline" class="control js-generator-form-discipline">
+							</div>
+						</div>
+						<div class="col">
+							<div class="form-group js-generator-form-settings-more-toggle-group">
+								<label for="">Не хватает настроек?</label>
+								<div>
+									<a href="#" class="button js-generator-form-settings-more-toggle">
+										<img src="img/settings.svg" alt="К" height="18">Больше настроек
+									</a>
+								</div>
+							</div>
+							<div class="form-group js-generator-form-settings-more-toggle-group" style="display:none">
+								<label for="">Много настроек?</label>
+								<div>
+									<a href="#" class="button js-generator-form-settings-more-toggle">
+										<img src="img/settings.svg" alt="К" height="18">Меньше настроек
+									</a>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="">Номер работы</label>
+								<input type="text" name="work-number" class="control">
+							</div>
+						</div>
+					</div>
+					<div class="row js-generator-form-settings-more" style="display:none">
+						<div class="col mr-27p">
+							<div class="form-group">
+								<label for="">Преподаватель</label>
+								<input type="text" name="teacher-name" class="control js-generator-form-teacher">
+							</div>
+							<div class="form-group">
+								<label for="">Город</label>
+								<input type="text" name="city" class="control" value="Владимир">
+							</div>
+							<div class="form-group">
+								<label for="">Год</label>
+								<input type="text" name="year" class="control" value="<?=date('Y')?>">
+							</div>
+						</div>
+						<div class="col">
+							<div class="form-group">
+								<label for="">Должность</label>
+								<input type="text" name="teacher-group" class="control js-generator-form-teacher-position">
+							</div>
+							<div class="form-group">
+								<label for="">Группа</label>
+								<input type="text" name="student-group" class="control" value="ПРИ-117">
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col mr-27p">
+							<div class="form-group">
+								<button type="submit" class="button blue" onclick="ym(45535101, 'reachGoal', 'generator_generate', {name: $('.js-generator-form-name').val()}); return true;">Сгенерировать</button>
+							</div>
+						</div>
+					</div>
+				</form>
+				<div class="generator-success alert alert-success d-none">
+					Ваш файл: <a href="#" class="js-link alert-link" download="file.docx">Файл</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<header>
+		<div class="fl_l">
+			<div class="belonging">
+				<h2>4 КУРС</h2>
+				<b>7 СЕМЕСТР</b>
+			</div>
+		</div>
+		<?/* 
+		<div class="fl_r">
+			<div class="dates"><a href="#">&lt; 1 сент</a> - <a href="#">31 дек &gt;</a></div>
+		</div>
+		*/?>
+		<div class="fl_r">
+			<a href="#" onclick="$('#modal_files').fadeIn(200);return false" class="modal_files_openicon"><span>Файловое хранилище</span><img src="img/folder.svg" alt=""></a>
+		</div>
+		<center class="group">
+			<h1>ПРИ-117</h1>
+			<b>ИИТиР</b>
+		</center>
+	</header>
+	<main style="height:calc(100% - 175px)">
+		<table>
+			<tr>
+				<th width="12%">Время</th>
+				<th width="17.6%">Понедельник</th>
+				<th width="17.6%">Вторник</th>
+				<th width="17.6%">Среда</th>
+				<th width="17.6%">Четверг</th>
+				<th width="17.6%">Пятница</th>
+			</tr>
+			<tr class="first">
+				<td class="dtime"><span class="time">8:30 - 10:00</span></td>
+				<td class="mon splitted">
+					<div class="num lection">
+						<div class="sb">
+							<div>1</div>
+							<div class="bottom">ч</div>
+						</div>
+						<div class="rsb">
+							<div class="group-location">A/Б <span>314-3</span></div>
+							<div class="couple_name" title="Графический и веб-дизайн">ГиВД</div>
+							<div class="teacher">Монахова</div>
+						</div>
+					</div>
+				</td>
+				<td class="tue"></td>
+				<td class="wed splitted">
+					<div class="num lection">
+						<div class="sb">
+							<div>1</div>
+							<div class="bottom">ч</div>
+						</div>
+						<div class="rsb">
+							<div class="group-location">А/Б <span>418-2</span></div>
+							<div class="couple_name" title="Качество программных информационных систем">КПИС</div>
+							<div class="teacher">Хорошева</div>
+						</div>
+					</div>
+					<div class="denum lection">
+						<div class="sb">
+							<div>1</div>
+							<div class="bottom">з</div>
+						</div>
+						<div class="rsb">
+							<div class="group-location">А/Б <span>213-3</span></div>
+							<div class="couple_name" title="Информационные технологии в образовании">ИТО</div>
+							<div class="teacher">Озерова</div>
+						</div>
+					</div>
+				</td>
+				<td class="thu"></td>
+				<td class="fri splitted">
+					<div class="red num lab">
+						<div class="sb">
+							<div>1</div>
+							<div class="bottom">ч</div>
+						</div>
+						<div class="rsb">
+							<div class="group-location">A <span>314-3</span></div>
+							<div class="couple_name" title="Технологии разработки мобильных приложений">ТРаМП</div>
+							<div class="teacher">Козаев</div>
+						</div>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td class="timeout" colspan="6">10:00 - 10:30  ПЕРЕМЕНА</td>
+			</tr>
+			<tr class="second">
+				<td class="dtime"><span class="time">10:30 - 12:00</span></td>
+				<td class="mon splitted">
+					<div class="num lection">
+						<div class="sb">
+							<div>2</div>
+							<div class="bottom">ч</div>
+						</div>
+						<div class="rsb">
+							<div class="group-location">A/Б <span>410-2</span></div>
+							<div class="couple_name" title="Технологии разработки мобильных приложений">ТРаМП</div>
+							<div class="teacher">Салех</div>
+						</div>
+					</div>
+				</td>
+				<td class="tue"></td>
+				<td class="wed splitted">
+					<div class="num practice">
+						<div class="sb">
+							<div>2</div>
+							<div class="bottom">ч</div>
+						</div>
+						<div class="rsb">
+							<div class="group-location">А/Б <span>418-2</span></div>
+							<div class="couple_name" title="Качество программных информационных систем">КПИС</div>
+							<div class="teacher">Хорошева</div>
+						</div>
+					</div>
+					<div class="denum lection">
+						<div class="sb">
+							<div>2</div>
+							<div class="bottom">з</div>
+						</div>
+						<div class="rsb">
+							<div class="group-location">А/Б <span>119-3</span></div>
+							<div class="couple_name" title="Интегрированные информационные системы">ИИС</div>
+							<div class="teacher">Градусов</div>
+						</div>
+					</div>
+				</td>
+				<td class="thu"></td>
+				<td class="fri splitted">
+					<div class="red num lab">
+						<div class="sb">
+							<div>2</div>
+							<div class="bottom">ч</div>
+						</div>
+						<div class="rsb">
+							<div class="group-location">A <span>314-3</span></div>
+							<div class="couple_name" title="Технологии разработки мобильных приложений">ТРаМП</div>
+							<div class="teacher">Козаев</div>
+						</div>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td class="timeout" colspan="6">12:00 - 12:30  ПЕРЕМЕНА</td>
+			</tr>
+			<tr class="third">
+				<td class="dtime"><span class="time">12:30 - 14:00</span></td>
+				<td class="mon splitted">
+					<div class="num practice">
+						<div class="sb">
+							<div>3</div>
+							<div class="bottom">ч</div>
+						</div>
+						<div class="rsb">
+							<div class="group-location">А/Б <span>414-2</span></div>
+							<div class="couple_name" title="Технологии разработки мобильных приложений">ТРаМП</div>
+							<div class="teacher">Салех</div>
+						</div>
+					</div>
+					<div class="red denum lab">
+						<div class="sb">
+							<div>3</div>
+							<div class="bottom">з</div>
+						</div>
+						<div class="rsb">
+							<div class="group-location">А <span>414-2</span></div>
+							<div class="couple_name" title="Информационные технологии в образовании">ИТО</div>
+							<div class="teacher">Ланская</div>
+						</div>
+					</div>
+				</td>
+				<td class="tue"></td>
+				<td class="wed splitted">
+					<div class="invisible"></div>
+					<div class="denum practice">
+						<div class="sb">
+							<div>3</div>
+							<div class="bottom">з</div>
+						</div>
+						<div class="rsb">
+							<div class="group-location">А/Б <span>119-3</span></div>
+							<div class="couple_name" title="Интегрированные информационные системы">ИИС</div>
+							<div class="teacher">Градусов</div>
+						</div>
+					</div>
+				</td>
+				<td class="thu splitted">
+					<div class="invisible"></div>
+					<div class="denum lab">
+						<div class="sb left">
+							<div>3</div>
+							<div class="bottom">з</div>
+						</div>
+						<div class="rsb">
+							<div class="group-location">А/Б <span>418-2</span></div>
+							<div class="couple_name" title="Качество программных информационных систем">КПИС</div>
+							<div class="teacher">Хорошева</div>
+						</div>
+					</div>
+				</td>
+				<td class="fri"></td>
+			</tr>
+			<tr>
+				<td class="timeout" colspan="6">14:00 - 14:30  ПЕРЕМЕНА</td>
+			</tr>
+			<tr class="fourth">
+				<td class="dtime"><span class="time">14:30 - 16:00</span></td>
+				<td class="mon splitted">
+					<div class="invisible"></div>
+					<div class="red denum lab">
+						<div class="sb">
+							<div>4</div>
+							<div class="bottom">з</div>
+						</div>
+						<div class="rsb">
+							<div class="group-location">А <span>414-2</span></div>
+							<div class="couple_name" title="Информационные технологии в образовании">ИТО</div>
+							<div class="teacher">Ланская</div>
+						</div>
+					</div>
+				</td>
+				<td class="tue"></td>
+				<td class="wed"></td>
+				<td class="thu">
+					<div class="num denum lection">
+						<div class="sb left">
+							<div>4</div>
+						</div>
+						<div class="rsb">
+							<div class="group-location">А/Б <span>314-3</span></div>
+							<div class="couple_name" title="Геометрическое моделирование">ГМ</div>
+							<div class="teacher">Монахова</div>
+						</div>
+					</div>
+				</td>
+				<td class="fri"></td>
+			</tr>
+			<tr>
+				<td class="timeout" colspan="6">16:00 - 16:30  ПЕРЕМЕНА</td>
+			</tr>
+			<tr class="fifth">
+				<td class="dtime"><span class="time">16:30 - 18:00</span></td>
+				<td class="mon splitted">
+					<div class="invisible"></div>
+					<div class="denum lection">
+						<div class="sb">
+							<div>5</div>
+							<div class="bottom">з</div>
+						</div>
+						<div class="rsb">
+							<div class="group-location">А/Б <span>314-3</span></div>
+							<div class="couple_name" title="Программирование компьютерной графики">ПКГ</div>
+							<div class="teacher">Жигалов</div>
+						</div>
+					</div>
+				</td>
+				<td class="tue splitted">
+					<div class="invisible"></div>
+					<div class="purple denum lab">
+						<div class="sb">
+							<div>5</div>
+							<div class="bottom">з</div>
+						</div>
+						<div class="rsb">
+							<div class="group-location">Б <span>314-3</span></div>
+							<div class="couple_name" title="Программирование компьютерной графики">ПКГ</div>
+							<div class="teacher">Жигалов</div>
+						</div>
+					</div>
+				</td>
+				<td class="wed"></td>
+				<td class="thu splitted">
+					<div class="purple num lab">
+						<div class="sb left">
+							<div>5</div>
+							<div class="bottom">ч</div>
+						</div>
+						<div class="rsb">
+							<div class="group-location">Б <span>314-3</span></div>
+							<div class="couple_name" title="Геометрическое моделирование">ГМ</div>
+							<div class="teacher">Монахова</div>
+						</div>
+					</div>
+					<div class="red denum lab">
+						<div class="sb left">
+							<div>5</div>
+							<div class="bottom">з</div>
+						</div>
+						<div class="rsb">
+							<div class="group-location">А <span>314-3</span></div>
+							<div class="couple_name" title="Графический и веб-дизайн">ГиВД</div>
+							<div class="teacher">Монахова</div>
+						</div>
+					</div>
+				</td>
+				<td class="fri"></td>
+			</tr>
+			<tr>
+				<td class="timeout" colspan="6">18:00 - 18:30  ПЕРЕМЕНА</td>
+			</tr>
+			<tr class="sixth">
+				<td class="dtime"><span class="time">18:30 - 20:00</span></td>
+				<td class="mon"></td>
+				<td class="tue splitted">
+					<div class="invisible"></div>
+					<div class="purple denum lab">
+						<div class="sb">
+							<div>6</div>
+							<div class="bottom">з</div>
+						</div>
+						<div class="rsb">
+							<div class="group-location">Б <span>314-3</span></div>
+							<div class="couple_name" title="Программирование компьютерной графики">ПКГ</div>
+							<div class="teacher">Жигалов</div>
+						</div>
+					</div>
+				</td>
+				<td class="wed"></td>
+				<td class="thu splitted">
+					<div class="purple num lab">
+						<div class="sb left">
+							<div>6</div>
+							<div class="bottom">ч</div>
+						</div>
+						<div class="rsb">
+							<div class="group-location">Б <span>314-3</span></div>
+							<div class="couple_name" title="Геометрическое моделирование">ГМ</div>
+							<div class="teacher">Монахова</div>
+						</div>
+					</div>
+				</td>
+				<td class="fri"></td>
+			</tr>
+		</table>
+	</main>
+	<footer>
+		<a href="//elerance.com" class="copyright" title="© Elerance Studio, Максим Савин"><span><img src="img/elerance_wt.svg" width="26" height="26" alt="Elerance logo"></span></a>
+		<a href="#" class="theme-changer js-theme-changer" title="Сменить тему"><span><img src="img/light_icon_wt.svg" width="26" height="26" alt="Elerance logo"></span></a>
+		<div class="access">
+			<a href="#" class="button"><img src="img/key.svg" alt="К" height="18">Доступы</a>
+			<div>
+				<img src="img/user.svg" alt="U" height="16"> <input type="text" name="l" spellcheck="false" readonly value="stu-pri117" id="user">
+				<img src="img/key.svg" alt="К" height="16"> <input type="text" name="p" spellcheck="false" readonly value="<?=(@include 'pass.php') ?: '*******'?>" id="key">
+			</div>
+		</div>
+		<div class="colorbubble red" data-shift-selector=":not(.red)" data-selector=".purple"><span>А</span> Группа <b>А</b></div>
+		<div class="colorbubble purple" data-shift-selector=":not(.purple)" data-selector=".red"><span>Б</span> Группа <b>Б</b></div>
+		<div class="colorbubble blue" data-selector=":not(.blue)"><span></span> Сейчас</div>
+		<div class="colorbubble num_s" data-weektype="num" data-shift-selector=".denum" data-selector=":not(.num)"><span>ч</span> Числитель</div>
+		<div class="colorbubble denum_s" data-weektype="denum" data-shift-selector=".num" data-selector=":not(.denum)"><span>з</span> Знаменатель</div>
+		<div class="colorbubble" data-selector=":not(.lab)"><span></span> Лабораторные</div>
+		<div class="colorbubble" data-selector=":not(.lection)"><span></span> Лекции</div>
+	</footer>
+	<script src="https://cdn.jsdelivr.net/npm/js-cookie@beta/dist/js.cookie.min.js"></script>
+	<script src="engine/js.php?p=jquery-3.3.1,perfectscrollbar,date.format,schedule"></script>
+	<script type="text/javascript">(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})(window,document,"script","https://mc.yandex.ru/metrika/tag.js","ym");ym(45535101,"init",{clickmap:!0,trackLinks:!0,accurateTrackBounce:!0,webvisor:!0})</script>
+	<noscript><div><img src="https://mc.yandex.ru/watch/45535101" style="position:absolute; left:-9999px;" alt=""/></div></noscript>
+	<!--Эта страница находится под охраной святой статьи 146 УК РФ-->
+</body>
+</html>

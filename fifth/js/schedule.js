@@ -128,8 +128,6 @@ $(function(){
 
         minutes = hours*60 + minutes;
         
-        minutes = 15*60 + 31;
-
         $('table td>div').removeClass('blue');
 
         var selector = null;
@@ -148,7 +146,7 @@ $(function(){
                 break;
 
             var selector = BuildSelector(couple_num, weekday, week, sliced >= 1 ? sliced+1 : false);
-            
+
             minutes -= 110;
 
             sliced++;
