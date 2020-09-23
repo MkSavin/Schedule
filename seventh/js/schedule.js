@@ -125,7 +125,11 @@ $(function(){
         return week % 2 == 0;
     }
 
-    BuildSelector = function(couple_num, weekday, week, long_num = false) {
+    BuildSelector = function(couple_num, weekday, week, long_num) {
+        if (!long_num) {
+            long_num = false;
+        }
+        
         return 'table tr.'+couple_num+' td.'+weekday+(long_num ? '.long-'+long_num : '')+'>div:'+(GetWeekType(week)?"first":"last")+'-of-type';
     }
 
