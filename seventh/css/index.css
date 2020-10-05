@@ -177,11 +177,6 @@ body.darktheme.blue .button {
   color: #b7c8d4;
 }
 
-body.darktheme .colorbubble > span {
-  background: -webkit-gradient(linear, left top, right top, from(#546065), to(#414d53));
-  background: linear-gradient(to right, #546065, #414d53);
-}
-
 .colorbubble > span {
   display: inline-block;
   width: 32px;
@@ -241,6 +236,37 @@ body.darktheme .colorbubble.green > span, body.blacktheme .colorbubble.green > s
   background: linear-gradient(to right, #658822 0%, #336823 100%);
 }
 
+body.darktheme .colorbubble > span, body.blacktheme .colorbubble > span {
+  background: -webkit-gradient(linear, left top, right top, from(#546065), to(#414d53));
+  background: linear-gradient(to right, #546065, #414d53);
+}
+
+body.darktheme .access div, body.blacktheme .access div {
+  border-left: 1px solid rgba(199, 212, 221, 0.1);
+  border-right: 1px solid rgba(199, 212, 221, 0.1);
+}
+
+body.darktheme .modal .file .content, body.blacktheme .modal .file .content {
+  -webkit-box-shadow: 0 0 20px rgba(22, 24, 26, 0.3);
+          box-shadow: 0 0 20px rgba(22, 24, 26, 0.3);
+}
+
+body.darktheme .modal .file .content .text, body.darktheme .modal .file .content .info, body.blacktheme .modal .file .content .text, body.blacktheme .modal .file .content .info {
+  color: #c7d4dd;
+}
+
+body.darktheme .modal .file .content .info, body.blacktheme .modal .file .content .info {
+  opacity: 0.3;
+}
+
+body.darktheme .modal .file.link .content .text, body.darktheme .modal .file.link .content .info, body.blacktheme .modal .file.link .content .text, body.blacktheme .modal .file.link .content .info {
+  color: #c7d4dd;
+}
+
+body.darktheme .modal .file.link .title, body.blacktheme .modal .file.link .title {
+  color: #c7d4dd;
+}
+
 body.darktheme .button:hover, body.blacktheme .button:hover {
   background: rgba(43, 57, 83, 0.2);
   color: #c7d4dd;
@@ -269,6 +295,31 @@ body.darktheme table .timeout {
   background: rgba(37, 47, 66, 0.56);
 }
 
+body.darktheme table td > div, body.darktheme table td > a {
+  background: -webkit-gradient(linear, left top, right top, from(#546065), to(#414d53));
+  background: linear-gradient(to right, #546065, #414d53);
+}
+
+body.darktheme table td > div.red, body.darktheme table td > a.red {
+  background: -webkit-gradient(linear, left top, right top, from(#d57b72), to(#a93b5d));
+  background: linear-gradient(to right, #d57b72 0%, #a93b5d 100%);
+}
+
+body.darktheme table td > div.purple, body.darktheme table td > a.purple {
+  background: -webkit-gradient(linear, left top, right top, from(#866e97), to(#6f4486));
+  background: linear-gradient(to right, #866e97 0%, #6f4486 100%);
+}
+
+body.darktheme table td > div.blue, body.darktheme table td > a.blue {
+  background: -webkit-gradient(linear, left top, right top, from(#2783d2), to(#1167b2));
+  background: linear-gradient(to right, #2783d2 0%, #1167b2 100%);
+}
+
+body.darktheme table td > div.green, body.darktheme table td > a.green {
+  background: -webkit-gradient(linear, left top, right top, from(#658822), to(#336823));
+  background: linear-gradient(to right, #658822 0%, #336823 100%);
+}
+
 body.darktheme .button, body.darktheme .control {
   border-color: #2B3953;
 }
@@ -287,8 +338,8 @@ body.darktheme footer {
 }
 
 body.darktheme .theme-changer > span {
-  background: -webkit-gradient(linear, left top, right top, from(#389ef6), to(#389ef6));
-  background: linear-gradient(to right, #389ef6 0%, #389ef6 100%);
+  background: -webkit-gradient(linear, left top, right top, from(#232629), to(#1c1e20));
+  background: linear-gradient(to right, #232629 0%, #1c1e20 100%);
 }
 
 body.darktheme .access div input {
@@ -322,6 +373,31 @@ body.blacktheme table .timeout {
   background: #232629;
 }
 
+body.blacktheme table td > div, body.blacktheme table td > a {
+  background: -webkit-gradient(linear, left top, right top, from(#494f52), to(#2e3438));
+  background: linear-gradient(to right, #494f52, #2e3438);
+}
+
+body.blacktheme table td > div.red, body.blacktheme table td > a.red {
+  background: -webkit-gradient(linear, left top, right top, from(#7f443f), to(#632135));
+  background: linear-gradient(to right, #7f443f 0%, #632135 100%);
+}
+
+body.blacktheme table td > div.purple, body.blacktheme table td > a.purple {
+  background: -webkit-gradient(linear, left top, right top, from(#675971), to(#50345f));
+  background: linear-gradient(to right, #675971 0%, #50345f 100%);
+}
+
+body.blacktheme table td > div.blue, body.blacktheme table td > a.blue {
+  background: -webkit-gradient(linear, left top, right top, from(#3273ab), to(#165388));
+  background: linear-gradient(to right, #3273ab 0%, #165388 100%);
+}
+
+body.blacktheme table td > div.green, body.blacktheme table td > a.green {
+  background: -webkit-gradient(linear, left top, right top, from(#526b23), to(#2a521d));
+  background: linear-gradient(to right, #526b23 0%, #2a521d 100%);
+}
+
 body.blacktheme .button, body.blacktheme .control {
   border-color: #1c1e20;
 }
@@ -340,8 +416,8 @@ body.blacktheme footer {
 }
 
 body.blacktheme .theme-changer > span {
-  background: -webkit-gradient(linear, left top, right top, from(#2B3953), to(#212f4a));
-  background: linear-gradient(to right, #2B3953 0%, #212f4a 100%);
+  background: -webkit-gradient(linear, left top, right top, from(#389ef6), to(#389ef6));
+  background: linear-gradient(to right, #389ef6 0%, #389ef6 100%);
 }
 
 body.blacktheme .access div input {
@@ -350,6 +426,10 @@ body.blacktheme .access div input {
 
 body.blacktheme .modal {
   background: #232629;
+}
+
+body.blacktheme .modal .file .content {
+  background: #26292b;
 }
 
 body.blacktheme .form-group .control {
@@ -472,12 +552,7 @@ table td:not(.timeout) {
   padding: 46px 16px;
 }
 
-body.darktheme table td > div {
-  background: -webkit-gradient(linear, left top, right top, from(#546065), to(#414d53));
-  background: linear-gradient(to right, #546065, #414d53);
-}
-
-table td > div {
+table td > div, table td > a {
   position: absolute;
   top: 0;
   bottom: 0;
@@ -493,73 +568,53 @@ table td > div {
   overflow: hidden;
 }
 
-table td.splitted > div:first-of-type, table td.splitted > div.left {
+table td > div *, table td > a * {
+  color: inherit;
+}
+
+table td > div.invisible, table td > a.invisible {
+  opacity: 0 !important;
+}
+
+table td.splitted > div:first-of-type, table td.splitted > div.left, table td.splitted > a:first-of-type, table td.splitted > a.left {
   left: 0 !important;
   right: 50% !important;
 }
 
-table td.splitted > div:last-of-type {
+table td.splitted > div:last-of-type, table td.splitted > a:last-of-type {
   left: 50%;
   right: 0;
 }
 
-table td > div.invisible {
-  opacity: 0 !important;
-}
-
-table td.long-2 > div {
+table td.long-2 > div, table td.long-2 > a {
   bottom: calc(-100% - 48px);
 }
 
-table td.long-3 > div {
+table td.long-3 > div, table td.long-2 > a {
   bottom: calc(-200% - 97px);
 }
 
-table td > div * {
-  color: inherit;
-}
-
-body.darktheme table td > div.red {
-  background: -webkit-gradient(linear, left top, right top, from(#d57b72), to(#a93b5d));
-  background: linear-gradient(to right, #d57b72 0%, #a93b5d 100%);
-}
-
-body.darktheme table td > div.purple {
-  background: -webkit-gradient(linear, left top, right top, from(#866e97), to(#6f4486));
-  background: linear-gradient(to right, #866e97 0%, #6f4486 100%);
-}
-
-body.darktheme table td > div.blue {
-  background: -webkit-gradient(linear, left top, right top, from(#2783d2), to(#1167b2));
-  background: linear-gradient(to right, #2783d2 0%, #1167b2 100%);
-}
-
-body.darktheme table td > div.green {
-  background: -webkit-gradient(linear, left top, right top, from(#658822), to(#336823));
-  background: linear-gradient(to right, #658822 0%, #336823 100%);
-}
-
-table td > div.red {
+table td > div.red, table td > a.red {
   background: -webkit-gradient(linear, left top, right top, from(#fba9a2), to(#fb7ca4));
   background: linear-gradient(to right, #fba9a2 0%, #fb7ca4 100%);
 }
 
-table td > div.purple {
+table td > div.purple, table td > a.purple {
   background: -webkit-gradient(linear, left top, right top, from(#d2b6e5), to(#d2aee5));
   background: linear-gradient(to right, #d2b6e5 0%, #d2aee5 100%);
 }
 
-table td > div.blue {
+table td > div.blue, table td > a.blue {
   background: -webkit-gradient(linear, left top, right top, from(#389ef6), to(#389ef6));
   background: linear-gradient(to right, #389ef6 0%, #389ef6 100%);
 }
 
-table td > div.green {
+table td > div.green, table td > a.green {
   background: -webkit-gradient(linear, left top, right top, from(#a0c656), to(#7bba67));
   background: linear-gradient(to right, #a0c656 0%, #7bba67 100%);
 }
 
-table td > div.lab:after, table td > div.pe:after, table td > div.english:after, table td > div.lection:after, table td > div.practice:after {
+table td > div.lab:after, table td > div.pe:after, table td > div.english:after, table td > div.lection:after, table td > div.practice:after, table td > a.lab:after, table td > a.pe:after, table td > a.english:after, table td > a.lection:after, table td > a.practice:after {
   content: '';
   position: absolute;
   opacity: .18;
@@ -570,32 +625,32 @@ table td > div.lab:after, table td > div.pe:after, table td > div.english:after,
   z-index: -1;
 }
 
-table td > div.lab:after {
+table td > div.lab:after, table td > a.lab:after {
   background: url(../img/lab.svg) bottom/contain no-repeat;
 }
 
-table td > div.pe:after {
+table td > div.pe:after, table td > a.pe:after {
   background: url(../img/pe.svg) bottom/contain no-repeat;
 }
 
-table td > div.english:after {
+table td > div.english:after, table td > a.english:after {
   background: url(../img/english.svg) bottom/contain no-repeat;
 }
 
-table td > div.lection:after {
+table td > div.lection:after, table td > a.lection:after {
   background: url(../img/lection.svg) bottom/contain no-repeat;
 }
 
-table td > div.practice:after {
+table td > div.practice:after, table td > a.practice:after {
   height: 100px;
   background: url(../img/practice.svg) bottom/contain no-repeat;
 }
 
-table td > div .sb, table td > div .rsb {
+table td > div .sb, table td > div .rsb, table td > a .sb, table td > a .rsb {
   float: left;
 }
 
-table td > div .sb {
+table td > div .sb, table td > a .sb {
   border-right: 3px solid rgba(255, 255, 255, 0.2);
   padding-right: 5px;
   margin-right: 10px;
@@ -604,7 +659,7 @@ table td > div .sb {
   text-align: center;
 }
 
-table td > div .sb .bottom {
+table td > div .sb .bottom, table td > a .sb .bottom {
   position: absolute;
   bottom: 10px;
   width: 22px;
@@ -617,45 +672,45 @@ table td > div .sb .bottom {
   background: linear-gradient(to left, rgba(167, 196, 212, 0.36), rgba(113, 113, 113, 0.16));
 }
 
-table td > div .sb .bottom.second {
+table td > div .sb .bottom.second, table td > a .sb .bottom.second {
   bottom: 42px;
 }
 
-table td > div.red .sb .bottom {
+table td > div.red .sb .bottom, table td > a.red .sb .bottom {
   background: -webkit-gradient(linear, right top, left top, from(rgba(232, 141, 139, 0.49)), to(rgba(251, 133, 163, 0.47)));
   background: linear-gradient(to left, rgba(232, 141, 139, 0.49), rgba(251, 133, 163, 0.47));
 }
 
-table td > div.purple .sb .bottom {
+table td > div.purple .sb .bottom, table td > a.purple .sb .bottom {
   background: -webkit-gradient(linear, right top, left top, from(rgba(187, 154, 207, 0.478)), to(rgba(179, 152, 195, 0.42)));
   background: linear-gradient(to left, rgba(187, 154, 207, 0.478), rgba(179, 152, 195, 0.42));
 }
 
-table td > div.blue .sb .bottom {
+table td > div.blue .sb .bottom, table td > a.blue .sb .bottom {
   background: -webkit-gradient(linear, right top, left top, from(rgba(51, 143, 222, 0.8)), to(rgba(43, 135, 214, 0.41)));
   background: linear-gradient(to left, rgba(51, 143, 222, 0.8), rgba(43, 135, 214, 0.41));
 }
 
-table td > div.green .sb .bottom {
+table td > div.green .sb .bottom, table td > a.green .sb .bottom {
   background: -webkit-gradient(linear, right top, left top, from(rgba(139, 177, 64, 0.82)), to(rgba(203, 230, 118, 0.72)));
   background: linear-gradient(to left, rgba(139, 177, 64, 0.82) 0%, rgba(203, 230, 118, 0.72));
 }
 
-table td > div .rsb {
+table td > div .rsb, table td > a .rsb {
   width: calc(100% - 34px);
 }
 
-table td > div .rsb .group-location {
+table td > div .rsb .group-location, table td > a .rsb .group-location {
   font-size: 22px;
   font-weight: 500;
 }
 
-table td > div .rsb .group-location span:not(.group-marker) {
+table td > div .rsb .group-location span:not(.group-marker), table td > a .rsb .group-location span:not(.group-marker) {
   float: right;
   font-size: 17px;
 }
 
-table td > div .rsb .couple_name {
+table td > div .rsb .couple_name, table td > a .rsb .couple_name {
   font-size: 20px;
   line-height: 40px;
   font-weight: 500;
@@ -728,9 +783,14 @@ footer > div:last-of-type {
   margin-right: 10px;
 }
 
-body.darktheme .access div {
-  border-left: 1px solid rgba(199, 212, 221, 0.1);
-  border-right: 1px solid rgba(199, 212, 221, 0.1);
+.access div input {
+  width: 80px;
+  background: #fff;
+  font-size: 16px;
+}
+
+.access .button {
+  margin-top: -5px;
 }
 
 .access div {
@@ -747,16 +807,6 @@ body.darktheme .access div {
 .access div > img {
   vertical-align: text-top;
   margin-top: 2px;
-}
-
-.access div input {
-  width: 80px;
-  background: #fff;
-  font-size: 16px;
-}
-
-.access .button {
-  margin-top: -5px;
 }
 
 .colorbubble_container {
@@ -905,10 +955,6 @@ body.darktheme .access div {
   color: #fff !important;
 }
 
-body.darktheme .modal .file .content .text, body.darktheme .modal .file .content .info {
-  color: #c7d4dd;
-}
-
 .modal .file .content .text, .modal .file .content .info {
   position: absolute;
   top: 15px;
@@ -919,10 +965,6 @@ body.darktheme .modal .file .content .text, body.darktheme .modal .file .content
   overflow: hidden;
   font-size: 15px;
   word-break: break-word;
-}
-
-body.darktheme .modal .file .content .info {
-  opacity: 0.3;
 }
 
 .modal .file .content .info {
@@ -939,11 +981,6 @@ body.darktheme .modal .file .content .info {
 
 .modal .file:active {
   opacity: 0.7;
-}
-
-body.darktheme .modal .file .content {
-  -webkit-box-shadow: 0 0 20px rgba(22, 24, 26, 0.3);
-          box-shadow: 0 0 20px rgba(22, 24, 26, 0.3);
 }
 
 .modal .file .content {
@@ -984,14 +1021,6 @@ body.darktheme .modal .file .content {
 
 .modal .file.pdf .title {
   color: #fb7fa4;
-}
-
-body.darktheme .modal .file.link .content .text, body.darktheme .modal .file.link .content .info {
-  color: #c7d4dd;
-}
-
-body.darktheme .modal .file.link .title {
-  color: #c7d4dd;
 }
 
 .modal .file.link .type, .modal .file.link:hover .content {
