@@ -12,7 +12,7 @@
 	<meta property="og:type" content="article">
 	<meta property="og:url" content="//dl.mksavin.ru/schedule/sixth/">
 </head>
-<body class="<?=$_COOKIE['darktheme'] == 'true' ? 'darktheme' : ''?>">
+<body class="<?=$_COOKIE['theme'] . 'theme'?>">
 	<link rel="stylesheet" href="engine/css.php?p=perfectscrollbar">
 	<div class="overlay" id="modal_files">
 		<span class="close">
@@ -124,11 +124,11 @@
 				?>
 					<a href="<?=$link ? trim(str_replace('\n', '', $link)) : 'dl/'.rawurlencode($file)?>" download="<?=$file?>" class="file dl <?=$type?>">
 						<div class="content"<?=$contentstyle?>>
-							<?php if(!$contents){?>
+							<?php if(!$contents){ ?>
 							<img src="<?=$image?>" class="unhovered" alt="">
 							<img src="<?=$image_white?>" class="hovered" alt="">
-							<?php }?>
-							<?php if(!$nosize){?>
+							<?php } ?>
+							<?php if(!$nosize){ ?>
 							<span class="info">
 								<span class="fl_l"></span>
 								<span class="fl_r"><img src="img/download.svg" alt="" width="10"> <?=$filesize_s?></span>
@@ -143,10 +143,10 @@
 							<span class="title"><?=$name?></span>
 						</div>
 					</a>
-				<?php }?>
-				<?php if(count($files) == 0){?>
+				<?php } ?>
+				<?php if(count($files) == 0){ ?>
 					Файлов, приложенных к сайту, нет
-				<?php }?>
+				<?php } ?>
 				</div>
 			</div>
 			<div class="page" data-page-id="2">
@@ -285,7 +285,7 @@
 				</td>
 				<td class="tue"></td>
 				<td class="wed splitted">
-					<div class="num lection">
+					<a href="//ispi.cdo.vlsu.ru/course/view.php?id=376" target="_blank" class="num lection">
 						<div class="sb">
 							<div>1</div>
 							<div class="bottom">ч</div>
@@ -295,8 +295,8 @@
 							<div class="couple_name" title="Информационные технологии в образовании">ИТО</div>
 							<div class="teacher">Озерова</div>
 						</div>
-					</div>
-					<div class="denum lection">
+					</a>
+					<a href="//ispi.cdo.vlsu.ru/course/view.php?id=492" target="_blank" class="denum lection">
 						<div class="sb">
 							<div>1</div>
 							<div class="bottom">з</div>
@@ -306,11 +306,11 @@
 							<div class="couple_name" title="Качество программных информационных систем">КПИС</div>
 							<div class="teacher">Хорошева</div>
 						</div>
-					</div>
+					</a>
 				</td>
 				<td class="thu"></td>
 				<td class="fri splitted">
-					<div class="num lab red">
+					<a href="//ispi.cdo.vlsu.ru/course/view.php?id=840" target="_blank" class="num lab red">
 						<div class="sb">
 							<div>1</div>
 							<div class="bottom">ч</div>
@@ -320,7 +320,7 @@
 							<div class="couple_name" title="Технологии разработки мобильных приложений">ТРаМП</div>
 							<div class="teacher">Козаев</div>
 						</div>
-					</div>
+					</a>
 				</td>
 			</tr>
 			<tr>
@@ -329,7 +329,7 @@
 			<tr class="second">
 				<td class="dtime"><span class="time">10:20 - 11:50</span></td>
 				<td class="mon splitted">
-					<div class="num lection">
+					<a href="//ispi.cdo.vlsu.ru/course/view.php?id=840" target="_blank" class="num lection">
 						<div class="sb">
 							<div>2</div>
 							<div class="bottom">ч</div>
@@ -339,11 +339,11 @@
 							<div class="couple_name" title="Технологии разработки мобильных приложений">ТРаМП</div>
 							<div class="teacher">Салех</div>
 						</div>
-					</div>
+					</a>
 				</td>
 				<td class="tue"></td>
 				<td class="wed splitted">
-					<div class="num practice purple">
+					<a href="#" class="num lection purple">
 						<div class="sb">
 							<div>2</div>
 							<div class="bottom">ч</div>
@@ -353,8 +353,8 @@
 							<div class="couple_name" title="Интегрированные информационные системы">ИИС</div>
 							<div class="teacher">Градусов</div>
 						</div>
-					</div>
-					<div class="denum lection">
+					</a>
+					<a href="//ispi.cdo.vlsu.ru/course/view.php?id=492" target="_blank" class="denum lection">
 						<div class="sb">
 							<div>2</div>
 							<div class="bottom">з</div>
@@ -364,11 +364,11 @@
 							<div class="couple_name" title="Качество программных информационных систем">КПИС</div>
 							<div class="teacher">Хорошева</div>
 						</div>
-					</div>
+					</a>
 				</td>
 				<td class="thu"></td>
 				<td class="fri splitted">
-					<div class="num lab red">
+					<a href="//ispi.cdo.vlsu.ru/course/view.php?id=840" target="_blank" class="num lab red">
 						<div class="sb">
 							<div>2</div>
 							<div class="bottom">ч</div>
@@ -378,7 +378,7 @@
 							<div class="couple_name" title="Технологии разработки мобильных приложений">ТРаМП</div>
 							<div class="teacher">Козаев</div>
 						</div>
-					</div>
+					</a>
 				</td>
 			</tr>
 			<tr>
@@ -387,7 +387,7 @@
 			<tr class="third">
 				<td class="dtime"><span class="time">12:10 - 13:40</span></td>
 				<td class="mon splitted">
-					<div class="num practice purple">
+					<a href="//ispi.cdo.vlsu.ru/course/view.php?id=840" target="_blank" class="num practice purple">
 						<div class="sb">
 							<div>3</div>
 							<div class="bottom">ч</div>
@@ -397,8 +397,8 @@
 							<div class="couple_name" title="Технологии разработки мобильных приложений">ТРаМП</div>
 							<div class="teacher">Салех</div>
 						</div>
-					</div>
-					<div class="denum lab red">
+					</a>
+					<a href="//ispi.cdo.vlsu.ru/course/view.php?id=376" target="_blank" class="denum lab red">
 						<div class="sb">
 							<div>3</div>
 							<div class="bottom">з</div>
@@ -408,7 +408,7 @@
 							<div class="couple_name" title="Информационные технологии в образовании">ИТО</div>
 							<div class="teacher">Ланская</div>
 						</div>
-					</div>
+					</a>
 				</td>
 				<td class="tue"></td>
 				<td class="wed splitted">
@@ -426,8 +426,8 @@
 					</div>
 				</td>
 				<td class="thu splitted">
-					<div class="invisible"></div>
-					<div class="denum lab red">
+					<a href="#" class="invisible"></a>
+					<a href="//ispi.cdo.vlsu.ru/course/view.php?id=492" target="_blank" class="denum lab red">
 						<div class="sb left">
 							<div>3</div>
 							<div class="bottom">з</div>
@@ -437,7 +437,7 @@
 							<div class="couple_name" title="Качество программных информационных систем">КПИС</div>
 							<div class="teacher">Хорошева</div>
 						</div>
-					</div>
+					</a>
 				</td>
 				<td class="fri"></td>
 			</tr>
@@ -455,7 +455,7 @@
 						</div>
 						<div class="rsb">
 							<div class="group-location">А/Б <span>414-2</span></div>
-							<div class="couple_name" title="Информационные технологии в образовании">ИТО</div>
+							<div class="couple_name" title="Интегрированные информационные системы">ИИС</div>
 							<div class="teacher">Ланская</div>
 						</div>
 					</div>
@@ -482,8 +482,8 @@
 			<tr class="fifth">
 				<td class="dtime"><span class="time">15:50 - 17:20</span></td>
 				<td class="mon splitted">
-					<div class="invisible"></div>
-					<div class="denum lection">
+					<a href="#" class="invisible"></a>
+					<a href="//ispi.cdo.vlsu.ru/course/view.php?id=473" target="_blank" class="denum lection">
 						<div class="sb">
 							<div>5</div>
 							<div class="bottom">з</div>
@@ -493,11 +493,11 @@
 							<div class="couple_name" title="Программирование компьютерной графики">ПКГ</div>
 							<div class="teacher">Жигалов</div>
 						</div>
-					</div>
+					</a>
 				</td>
 				<td class="tue splitted">
-					<div class="invisible"></div>
-					<div class="denum lab red">
+					<a href="#" class="invisible"></a>
+					<a href="//ispi.cdo.vlsu.ru/course/view.php?id=473" target="_blank" class="denum lab red">
 						<div class="sb">
 							<div>5</div>
 							<div class="bottom">з</div>
@@ -507,7 +507,7 @@
 							<div class="couple_name" title="Программирование компьютерной графики">ПКГ</div>
 							<div class="teacher">Жигалов</div>
 						</div>
-					</div>
+					</a>
 				</td>
 				<td class="wed"></td>
 				<td class="thu splitted">
@@ -543,8 +543,8 @@
 				<td class="dtime"><span class="time">17:40 - 19:10</span></td>
 				<td class="mon"></td>
 				<td class="tue splitted">
-					<div class="invisible"></div>
-					<div class="denum lab red">
+					<a href="#" class="invisible"></a>
+					<a href="//ispi.cdo.vlsu.ru/course/view.php?id=473" target="_blank" class="denum lab red">
 						<div class="sb">
 							<div>6</div>
 							<div class="bottom">з</div>
@@ -554,7 +554,7 @@
 							<div class="couple_name" title="Программирование компьютерной графики">ПКГ</div>
 							<div class="teacher">Жигалов</div>
 						</div>
-					</div>
+					</a>
 				</td>
 				<td class="wed"></td>
 				<td class="thu splitted">
