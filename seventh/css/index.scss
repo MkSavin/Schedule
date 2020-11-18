@@ -588,6 +588,7 @@ table td {
 
         &.invisible {
             opacity: 0 !important;
+            pointer-events: none;
         }
     }
 
