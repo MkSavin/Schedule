@@ -129,8 +129,14 @@ $(function(){
         if (!long_num) {
             long_num = false;
         }
+
+        var selector = '';
+
+        ['div', 'a'].forEach(function(element) {
+            selector += 'table tr.'+couple_num+' td.'+weekday+(long_num ? '.long-'+long_num : '')+'>' + element + ':'+(GetWeekType(week)?"first":"last")+'-of-type,';
+        });
         
-        return 'table tr.'+couple_num+' td.'+weekday+(long_num ? '.long-'+long_num : '')+'>div:'+(GetWeekType(week)?"first":"last")+'-of-type';
+        return selector.length > 0 ? selector.substr(0, selector.length - 1) : '';
     }
 
     FadeOutAll = function() {
@@ -160,7 +166,7 @@ $(function(){
 
         minutes = hours*60 + minutes;
         
-        $('table td>div').removeClass('blue');
+        $('table td>div,table td>a').removeClass('blue');
 
         var selector = null;
         var sliced = 0;
