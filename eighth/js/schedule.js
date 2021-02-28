@@ -122,7 +122,7 @@ $(function(){
     };
 
     GetWeekType = function(week) {
-        return week % 2 == 0;
+        return week % 2 == 1;
     }
 
     BuildSelector = function(couple_num, weekday, week, long_num) {
