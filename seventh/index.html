@@ -12,7 +12,7 @@
 	<meta property="og:type" content="article">
 	<meta property="og:url" content="//dl.mksavin.ru/schedule/sixth/">
 </head>
-<body class="<?=$_COOKIE['darktheme'] == 'true' ? 'darktheme' : ''?>">
+<body class="<?=$_COOKIE['theme'] . 'theme'?>">
 	<link rel="stylesheet" href="engine/css.php?p=perfectscrollbar">
 	<div class="overlay" id="modal_files">
 		<span class="close">
@@ -23,7 +23,7 @@
 			<div class="page active" data-page-id="1">
 				<div class="title">Файлы <a href="#" class="button short ml-2 page-navigator" data-target="2">Сгенерировать шаблон</a></div>
 				<div class="container ps">
-				<?
+				<?php
 				// Сканируем папку
 				$files = array_diff(scandir('./dl/'), ["..", "."]);
 				
@@ -124,16 +124,16 @@
 				?>
 					<a href="<?=$link ? trim(str_replace('\n', '', $link)) : 'dl/'.rawurlencode($file)?>" download="<?=$file?>" class="file dl <?=$type?>">
 						<div class="content"<?=$contentstyle?>>
-							<?if(!$contents){?>
+							<?php if(!$contents){ ?>
 							<img src="<?=$image?>" class="unhovered" alt="">
 							<img src="<?=$image_white?>" class="hovered" alt="">
-							<?}?>
-							<?if(!$nosize){?>
+							<?php } ?>
+							<?php if(!$nosize){ ?>
 							<span class="info">
 								<span class="fl_l"></span>
 								<span class="fl_r"><img src="img/download.svg" alt="" width="10"> <?=$filesize_s?></span>
 							</span>
-							<?}?>
+							<?php }?>
 							<span class="text">
 								<?=$contents?>
 							</span>
@@ -143,10 +143,10 @@
 							<span class="title"><?=$name?></span>
 						</div>
 					</a>
-				<?}?>
-				<?if(count($files) == 0){?>
+				<?php } ?>
+				<?php if(count($files) == 0){ ?>
 					Файлов, приложенных к сайту, нет
-				<?}?>
+				<?php } ?>
 				</div>
 			</div>
 			<div class="page" data-page-id="2">
@@ -162,13 +162,13 @@
 								<label for="">Дисциплина</label>
 								<select name="discipline" class="control js-generator-form-discipline-select">
 									<option value="">Выберите дисциплину</option>
-									<option value="Геоинформационные технологии" data-teacher="Монахова Г.Е" data-teacher-group="">ГИТ - Монахова</option>
-									<option value="Основы разработки веб-приложений" data-teacher="Козаев А.Т" data-teacher-group="">ОРВП - Козаев</option>
-									<option value="Администратирование и безопасность программных информационных систем" data-teacher="Спирин И.В" data-teacher-group="">АдБ ПИС - Спирин</option>
+									<option value="Геометрическое моделирование" data-teacher="Монахова Г.Е" data-teacher-group="">ГМ - Монахова</option>
+									<option value="Графический и веб-дизайн" data-teacher="Монахова Г.Е" data-teacher-group="">ГиВД - Монахова</option>
+									<option value="Технологии разработки мобильных приложений" data-teacher="Козаев А.Т" data-teacher-group="">ТРаМП - Козаев</option>
+									<option value="Информационные технологии в образовании" data-teacher="Ланская М.С" data-teacher-group="">ИТО - Ланская</option>
 									<option value="Интегрированные информационные системы" data-teacher="Ланская М.С" data-teacher-group="">ИИС - Ланская</option>
-									<option value="CASE-технологии" data-teacher="Андрианова В.И" data-teacher-group="">CASE - Андрианова</option>
-									<option value="Распределенные программные системы" data-teacher="Трифонов Д.А" data-teacher-group="">РПС - Трифонов</option>
-									<option value="Тестирование ПО" data-teacher="Породникова П.А" data-teacher-group="">Тест. - Породникова</option>
+									<option value="Программирование компьютерной графики" data-teacher="Жигалов И.Е." data-teacher-group="">ПКГ - Жигалов</option>
+									<option value="Качество программных информационных систем" data-teacher="Хорошева Е.Р." data-teacher-group="">КПИС - Хорошева</option>
 								</select>
 							</div>
 							<div class="form-group js-generator-form-settings-more-toggle-group" style="display:none">
@@ -246,7 +246,7 @@
 				<b>7 СЕМЕСТР</b>
 			</div>
 		</div>
-		<?/* 
+		<?php /* 
 		<div class="fl_r">
 			<div class="dates"><a href="#">&lt; 1 сент</a> - <a href="#">31 дек &gt;</a></div>
 		</div>
@@ -272,7 +272,7 @@
 			<tr class="first">
 				<td class="dtime"><span class="time">8:30 - 10:00</span></td>
 				<td class="mon splitted">
-					<div class="num lection">
+					<a href="//ispi.cdo.vlsu.ru/course/view.php?id=879" target="_blank" class="num lection">
 						<div class="sb">
 							<div>1</div>
 							<div class="bottom">ч</div>
@@ -282,11 +282,11 @@
 							<div class="couple_name" title="Графический и веб-дизайн">ГиВД</div>
 							<div class="teacher">Монахова</div>
 						</div>
-					</div>
+					</a>
 				</td>
 				<td class="tue"></td>
 				<td class="wed splitted">
-					<div class="num lection">
+					<a href="//ispi.cdo.vlsu.ru/course/view.php?id=376" target="_blank" class="num lection">
 						<div class="sb">
 							<div>1</div>
 							<div class="bottom">ч</div>
@@ -296,8 +296,8 @@
 							<div class="couple_name" title="Информационные технологии в образовании">ИТО</div>
 							<div class="teacher">Озерова</div>
 						</div>
-					</div>
-					<div class="denum lection">
+					</a>
+					<a href="//ispi.cdo.vlsu.ru/course/view.php?id=492" target="_blank" class="denum lection">
 						<div class="sb">
 							<div>1</div>
 							<div class="bottom">з</div>
@@ -307,21 +307,21 @@
 							<div class="couple_name" title="Качество программных информационных систем">КПИС</div>
 							<div class="teacher">Хорошева</div>
 						</div>
-					</div>
+					</a>
 				</td>
 				<td class="thu"></td>
 				<td class="fri splitted">
-					<div class="red num lab">
+					<a href="//ispi.cdo.vlsu.ru/course/view.php?id=840" target="_blank" class="num lab red">
 						<div class="sb">
 							<div>1</div>
 							<div class="bottom">ч</div>
 						</div>
 						<div class="rsb">
-							<div class="group-location">A <span>314-3</span></div>
+							<div class="group-location">А/Б <span>314-3</span></div>
 							<div class="couple_name" title="Технологии разработки мобильных приложений">ТРаМП</div>
 							<div class="teacher">Козаев</div>
 						</div>
-					</div>
+					</a>
 				</td>
 			</tr>
 			<tr>
@@ -330,7 +330,7 @@
 			<tr class="second">
 				<td class="dtime"><span class="time">10:20 - 11:50</span></td>
 				<td class="mon splitted">
-					<div class="num lection">
+					<a href="//ispi.cdo.vlsu.ru/course/view.php?id=840" target="_blank" class="num lection">
 						<div class="sb">
 							<div>2</div>
 							<div class="bottom">ч</div>
@@ -340,11 +340,11 @@
 							<div class="couple_name" title="Технологии разработки мобильных приложений">ТРаМП</div>
 							<div class="teacher">Салех</div>
 						</div>
-					</div>
+					</a>
 				</td>
 				<td class="tue"></td>
 				<td class="wed splitted">
-					<div class="num practice">
+					<a href="//ispi.cdo.vlsu.ru/course/view.php?id=685" target="_blank" class="num lection purple">
 						<div class="sb">
 							<div>2</div>
 							<div class="bottom">ч</div>
@@ -354,8 +354,8 @@
 							<div class="couple_name" title="Интегрированные информационные системы">ИИС</div>
 							<div class="teacher">Градусов</div>
 						</div>
-					</div>
-					<div class="denum lection">
+					</a>
+					<a href="//ispi.cdo.vlsu.ru/course/view.php?id=492" target="_blank" class="denum lection">
 						<div class="sb">
 							<div>2</div>
 							<div class="bottom">з</div>
@@ -365,21 +365,21 @@
 							<div class="couple_name" title="Качество программных информационных систем">КПИС</div>
 							<div class="teacher">Хорошева</div>
 						</div>
-					</div>
+					</a>
 				</td>
 				<td class="thu"></td>
 				<td class="fri splitted">
-					<div class="red num lab">
+					<a href="//ispi.cdo.vlsu.ru/course/view.php?id=840" target="_blank" class="num lab red">
 						<div class="sb">
 							<div>2</div>
 							<div class="bottom">ч</div>
 						</div>
 						<div class="rsb">
-							<div class="group-location">A <span>314-3</span></div>
+							<div class="group-location">А/Б <span>314-3</span></div>
 							<div class="couple_name" title="Технологии разработки мобильных приложений">ТРаМП</div>
 							<div class="teacher">Козаев</div>
 						</div>
-					</div>
+					</a>
 				</td>
 			</tr>
 			<tr>
@@ -388,7 +388,7 @@
 			<tr class="third">
 				<td class="dtime"><span class="time">12:10 - 13:40</span></td>
 				<td class="mon splitted">
-					<div class="num practice">
+					<a href="//ispi.cdo.vlsu.ru/course/view.php?id=840" target="_blank" class="num practice purple">
 						<div class="sb">
 							<div>3</div>
 							<div class="bottom">ч</div>
@@ -398,23 +398,23 @@
 							<div class="couple_name" title="Технологии разработки мобильных приложений">ТРаМП</div>
 							<div class="teacher">Салех</div>
 						</div>
-					</div>
-					<div class="red denum lab">
+					</a>
+					<a href="//ispi.cdo.vlsu.ru/course/view.php?id=376" target="_blank" class="denum lab red">
 						<div class="sb">
 							<div>3</div>
 							<div class="bottom">з</div>
 						</div>
 						<div class="rsb">
-							<div class="group-location">А <span>414-2</span></div>
+							<div class="group-location">А/Б <span>414-2</span></div>
 							<div class="couple_name" title="Информационные технологии в образовании">ИТО</div>
 							<div class="teacher">Ланская</div>
 						</div>
-					</div>
+					</a>
 				</td>
 				<td class="tue"></td>
 				<td class="wed splitted">
-					<div class="invisible"></div>
-					<div class="denum practice">
+					<a href="#" class="invisible"></a>
+					<a href="//ispi.cdo.vlsu.ru/course/view.php?id=685" target="_blank" class="denum practice purple">
 						<div class="sb">
 							<div>3</div>
 							<div class="bottom">з</div>
@@ -424,11 +424,11 @@
 							<div class="couple_name" title="Интегрированные информационные системы">ИИС</div>
 							<div class="teacher">Градусов</div>
 						</div>
-					</div>
+					</a>
 				</td>
 				<td class="thu splitted">
-					<div class="invisible"></div>
-					<div class="denum lab">
+					<a href="#" class="invisible"></a>
+					<a href="//ispi.cdo.vlsu.ru/course/view.php?id=492" target="_blank" class="denum lab red">
 						<div class="sb left">
 							<div>3</div>
 							<div class="bottom">з</div>
@@ -438,7 +438,7 @@
 							<div class="couple_name" title="Качество программных информационных систем">КПИС</div>
 							<div class="teacher">Хорошева</div>
 						</div>
-					</div>
+					</a>
 				</td>
 				<td class="fri"></td>
 			</tr>
@@ -448,23 +448,23 @@
 			<tr class="fourth">
 				<td class="dtime"><span class="time">14:00 - 15:30</span></td>
 				<td class="mon splitted">
-					<div class="invisible"></div>
-					<div class="red denum lab">
+					<a href="#" class="invisible"></a>
+					<a href="//ispi.cdo.vlsu.ru/course/view.php?id=685" target="_blank" class="denum lab red">
 						<div class="sb">
 							<div>4</div>
 							<div class="bottom">з</div>
 						</div>
 						<div class="rsb">
-							<div class="group-location">А <span>414-2</span></div>
-							<div class="couple_name" title="Информационные технологии в образовании">ИТО</div>
+							<div class="group-location">А/Б <span>414-2</span></div>
+							<div class="couple_name" title="Интегрированные информационные системы">ИИС</div>
 							<div class="teacher">Ланская</div>
 						</div>
-					</div>
+					</a>
 				</td>
 				<td class="tue"></td>
 				<td class="wed"></td>
 				<td class="thu">
-					<div class="num denum lection">
+					<a href="//ispi.cdo.vlsu.ru/course/view.php?id=882" target="_blank" class="num denum lection">
 						<div class="sb left">
 							<div>4</div>
 						</div>
@@ -473,7 +473,7 @@
 							<div class="couple_name" title="Геометрическое моделирование">ГМ</div>
 							<div class="teacher">Монахова</div>
 						</div>
-					</div>
+					</a>
 				</td>
 				<td class="fri"></td>
 			</tr>
@@ -483,8 +483,8 @@
 			<tr class="fifth">
 				<td class="dtime"><span class="time">15:50 - 17:20</span></td>
 				<td class="mon splitted">
-					<div class="invisible"></div>
-					<div class="denum lection">
+					<a href="#" class="invisible"></a>
+					<a href="//ispi.cdo.vlsu.ru/course/view.php?id=473" target="_blank" class="denum lection">
 						<div class="sb">
 							<div>5</div>
 							<div class="bottom">з</div>
@@ -494,46 +494,46 @@
 							<div class="couple_name" title="Программирование компьютерной графики">ПКГ</div>
 							<div class="teacher">Жигалов</div>
 						</div>
-					</div>
+					</a>
 				</td>
 				<td class="tue splitted">
-					<div class="invisible"></div>
-					<div class="purple denum lab">
+					<a href="#" class="invisible"></a>
+					<a href="//ispi.cdo.vlsu.ru/course/view.php?id=473" target="_blank" class="denum lab red">
 						<div class="sb">
 							<div>5</div>
 							<div class="bottom">з</div>
 						</div>
 						<div class="rsb">
-							<div class="group-location">Б <span>314-3</span></div>
+							<div class="group-location">А/Б <span>314-3</span></div>
 							<div class="couple_name" title="Программирование компьютерной графики">ПКГ</div>
 							<div class="teacher">Жигалов</div>
 						</div>
-					</div>
+					</a>
 				</td>
 				<td class="wed"></td>
 				<td class="thu splitted">
-					<div class="purple num lab">
+					<a href="//ispi.cdo.vlsu.ru/course/view.php?id=882" target="_blank" class="num lab red">
 						<div class="sb left">
 							<div>5</div>
 							<div class="bottom">ч</div>
 						</div>
 						<div class="rsb">
-							<div class="group-location">Б <span>314-3</span></div>
+							<div class="group-location">А/Б <span>314-3</span></div>
 							<div class="couple_name" title="Геометрическое моделирование">ГМ</div>
 							<div class="teacher">Монахова</div>
 						</div>
-					</div>
-					<div class="red denum lab">
+					</a>
+					<a href="//ispi.cdo.vlsu.ru/course/view.php?id=879" target="_blank" class="denum lab red">
 						<div class="sb left">
 							<div>5</div>
 							<div class="bottom">з</div>
 						</div>
 						<div class="rsb">
-							<div class="group-location">А <span>314-3</span></div>
+							<div class="group-location">А/Б <span>314-3</span></div>
 							<div class="couple_name" title="Графический и веб-дизайн">ГиВД</div>
 							<div class="teacher">Монахова</div>
 						</div>
-					</div>
+					</a>
 				</td>
 				<td class="fri"></td>
 			</tr>
@@ -544,32 +544,32 @@
 				<td class="dtime"><span class="time">17:40 - 19:10</span></td>
 				<td class="mon"></td>
 				<td class="tue splitted">
-					<div class="invisible"></div>
-					<div class="purple denum lab">
+					<a href="#" class="invisible"></a>
+					<a href="//ispi.cdo.vlsu.ru/course/view.php?id=473" target="_blank" class="denum lab red">
 						<div class="sb">
 							<div>6</div>
 							<div class="bottom">з</div>
 						</div>
 						<div class="rsb">
-							<div class="group-location">Б <span>314-3</span></div>
+							<div class="group-location">А/Б <span>314-3</span></div>
 							<div class="couple_name" title="Программирование компьютерной графики">ПКГ</div>
 							<div class="teacher">Жигалов</div>
 						</div>
-					</div>
+					</a>
 				</td>
 				<td class="wed"></td>
 				<td class="thu splitted">
-					<div class="purple num lab">
+					<a href="//ispi.cdo.vlsu.ru/course/view.php?id=882" target="_blank" class="num lab red">
 						<div class="sb left">
 							<div>6</div>
 							<div class="bottom">ч</div>
 						</div>
 						<div class="rsb">
-							<div class="group-location">Б <span>314-3</span></div>
+							<div class="group-location">А/Б <span>314-3</span></div>
 							<div class="couple_name" title="Геометрическое моделирование">ГМ</div>
 							<div class="teacher">Монахова</div>
 						</div>
-					</div>
+					</a>
 				</td>
 				<td class="fri"></td>
 			</tr>
@@ -585,12 +585,15 @@
 				<img src="img/key.svg" alt="К" height="16"> <input type="text" name="p" spellcheck="false" readonly value="<?=(@include 'pass.php') ?: '*******'?>" id="key">
 			</div>
 		</div>
-		<div class="colorbubble red" data-shift-selector=":not(.red)" data-selector=".purple"><span>А</span> Группа <b>А</b></div>
-		<div class="colorbubble purple" data-shift-selector=":not(.purple)" data-selector=".red"><span>Б</span> Группа <b>Б</b></div>
+		<?php /*
+			<div class="colorbubble red" data-shift-selector=":not(.red)" data-selector=".purple"><span>А</span> Группа <b>А</b></div>
+			<div class="colorbubble purple" data-shift-selector=":not(.purple)" data-selector=".red"><span>Б</span> Группа <b>Б</b></div>
+		*/?>
 		<div class="colorbubble blue" data-selector=":not(.blue)"><span></span> Сейчас</div>
 		<div class="colorbubble num_s" data-weektype="num" data-shift-selector=".denum" data-selector=":not(.num)"><span>ч</span> Числитель</div>
 		<div class="colorbubble denum_s" data-weektype="denum" data-shift-selector=".num" data-selector=":not(.denum)"><span>з</span> Знаменатель</div>
-		<div class="colorbubble" data-selector=":not(.lab)"><span></span> Лабораторные</div>
+		<div class="colorbubble red" data-selector=":not(.lab)"><span></span> Лабораторные</div>
+		<div class="colorbubble purple" data-selector=":not(.practice)"><span></span> Практики</div>
 		<div class="colorbubble" data-selector=":not(.lection)"><span></span> Лекции</div>
 	</footer>
 	<script src="https://cdn.jsdelivr.net/npm/js-cookie@beta/dist/js.cookie.min.js"></script>

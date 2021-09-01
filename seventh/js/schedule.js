@@ -125,8 +125,18 @@ $(function(){
         return week % 2 == 0;
     }
 
-    BuildSelector = function(couple_num, weekday, week, long_num = false) {
-        return 'table tr.'+couple_num+' td.'+weekday+(long_num ? '.long-'+long_num : '')+'>div:'+(GetWeekType(week)?"first":"last")+'-of-type';
+    BuildSelector = function(couple_num, weekday, week, long_num) {
+        if (!long_num) {
+            long_num = false;
+        }
+
+        var selector = '';
+
+        ['div', 'a'].forEach(function(element) {
+            selector += 'table tr.'+couple_num+' td.'+weekday+(long_num ? '.long-'+long_num : '')+'>' + element + ':'+(GetWeekType(week)?"first":"last")+'-of-type,';
+        });
+        
+        return selector.length > 0 ? selector.substr(0, selector.length - 1) : '';
     }
 
     FadeOutAll = function() {
@@ -156,7 +166,7 @@ $(function(){
 
         minutes = hours*60 + minutes;
         
-        $('table td>div').removeClass('blue');
+        $('table td>div,table td>a').removeClass('blue');
 
         var selector = null;
         var sliced = 0;
@@ -235,7 +245,7 @@ $(function(){
             }
         });
     });
-   
+
     $(document).on('click', '.js-generator-form-settings-more-toggle', function() {
         $('.js-generator-form-settings-more').toggle(300);
         $('.js-generator-form-settings-more-toggle-group').toggle();
@@ -266,8 +276,27 @@ $(function(){
     });
 
     $(document).on('click', '.js-theme-changer', function(e) {
-        $('body').toggleClass('darktheme');
+        var body = $('body');
+
+        var theme = body.hasClass('darktheme') ? 'dark' : body.hasClass('blacktheme') ? 'black' : 'normal';
+
+        switch (theme) {
+            case 'dark':
+                theme = 'black';
+                break;
         
-        Cookies.set('darktheme', $('body').hasClass('darktheme'), { expires: 365 });
+            case 'normal':
+                theme = 'dark';
+                break;
+        
+            default:
+                theme = 'normal';
+                break;
+        }
+        
+        body.removeClass(['darktheme', 'blacktheme', 'normaltheme']);
+        body.addClass(theme + 'theme');
+
+        Cookies.set('theme', theme, { expires: 365 });
     });
 });
